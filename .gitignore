@@ -1,0 +1,16 @@
+# Environment variables
+.env
+
+# Python bytecode
+*.pyc
+__pycache__/
+
+# AWS credentials and config
+.aws/
+
+# Local data storage
+data/
+*.parquet
+
+# OS generated files
+.DS_Store
