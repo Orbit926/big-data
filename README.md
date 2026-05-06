@@ -1,45 +1,121 @@
-# AWS Data Engineering Capstone: Sea Around Us Fisheries Pipeline
+# MOVE
 
-## 📝 Project Description
-This repository contains the implementation of an end-to-end data engineering pipeline designed to process and analyze fisheries data from the "Sea Around Us" dataset. The project demonstrates the use of AWS cloud services to build a scalable, robust, and production-ready data platform.
+> Organiza viajes en grupo, divide gastos y descubre destinos con inteligencia de datos.
 
-## 📊 Dataset
-The pipeline utilizes the **Sea Around Us fisheries dataset**, which provides comprehensive information on global fish catches, effort, and marine ecosystem health.
+---
 
-## 🎯 Pipeline Objective
-The primary goal is to automate the ingestion, transformation, and quality validation of raw fisheries data, moving it through a multi-tier architecture (Raw $\rightarrow$ Processed $\rightarrow$ Curated) to enable high-performance analytical querying and visualization.
+## Stack Tecnológico
 
-## 🏗️ General Architecture
-The architecture follows a modern data lakehouse pattern on AWS:
-1.  **Ingestion**: Python scripts simulate the movement of CSV data into an **Amazon S3 (Raw Bucket)**.
-2.  **Processing**: **AWS Glue** (simulated locally via Python/Pandas) transforms CSV data into **Apache Parquet** format, optimized for analytical workloads.
-3.  **Data Quality**: Automated validation checks ensure schema integrity and business rule compliance.
-4.  **Storage**: Data is organized in **Amazon S3 (Processed/Curated Buckets)** using a partitioned structure.
-5.  **Analytics**: **Amazon Athena** is used for serverless SQL querying against the S3 data lake.
-6.  **Visualization**: **Amazon QuickSight** serves as the BI layer for presenting key performance indicators (KPIs).
+| Capa       | Tecnología                              |
+|------------|------------------------------------------|
+| Backend    | Python 3.11, Django 4.2, DRF, Gunicorn  |
+| Frontend   | Vite, React 18, Material UI              |
+| Base datos | SQLite (dev) → PostgreSQL (prod)         |
+| Data       | JSON / CSV + pandas                      |
+| Infra      | Docker, AWS ECS Fargate, Terraform       |
 
-## 🚀 How to Run the Project
-*Note: This project is designed to run locally to simulate the AWS environment.*
+---
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/your-org/data-eng-project-team01.git
-   cd data-eng-project 
-   ```
+## Estructura del Repositorio
 
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+```
+move/
+├── backend/           → API REST (Django + DRF)
+│   ├── apps/
+│   │   ├── users/
+│   │   ├── trips/
+│   │   ├── jams/
+│   │   ├── expenses/
+│   │   └── search_engine/
+│   ├── config/        → Proyecto Django (settings, urls, wsgi)
+│   ├── Dockerfile
+│   ├── entrypoint.sh
+│   └── requirements.txt
+│
+├── frontend/          → SPA Vite + React (no modificar desde aquí)
+│
+├── data/
+│   ├── raw/           → Datasets originales
+│   └── processed/     → Datos listos para consumir
+│
+├── docs/
+│   ├── arquitectura.md
+│   ├── decisiones.md
+│   └── figma-link.txt
+│
+└── infra/             → Terraform (pendiente)
+```
 
-3. **Execute the pipeline:**
-   ```bash
-   ./orchestration/pipeline.sh
-   ```
+---
 
-## 👥 Team Roles
-- **Data Engineer (Pipeline/Ingestion)**: [Name]
-- **Data Engineer (Transformation/Glue)**: [Name]
-- **Data Quality Engineer**: [Name]
-- **Data Analyst (Analytics/QuickSight)**: [Name]
-- **DevOps/Cloud Architect**: [Name]
+## Cómo correr el Backend
+
+### Opción A — Local (virtualenv)
+
+```bash
+cd backend
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+python manage.py migrate
+python manage.py runserver
+```
+
+API disponible en: `http://localhost:8000/api/`  
+Health check: `http://localhost:8000/api/health/`
+
+### Opción B — Docker (solo backend)
+
+```bash
+cd backend
+docker build -t move-backend .
+docker run -p 8000:8000 --env-file .env move-backend
+```
+
+### Opción C — Docker Compose (stack completo) ⭐
+
+```bash
+# 1. Crear el archivo de variables de entorno del backend
+cp backend/.env.example backend/.env
+
+# 2. Levantar todo el stack
+docker compose up --build
+```
+
+| Servicio  | URL                            |
+|-----------|--------------------------------|
+| Frontend  | http://localhost               |
+| Backend   | http://localhost:8000/api/     |
+| Health    | http://localhost:8000/api/health/ |
+
+```bash
+# Detener
+docker compose down
+
+# Ver logs en tiempo real
+docker compose logs -f
+```
+
+---
+
+## Endpoints base
+
+| Método | URL                       | Descripción           |
+|--------|---------------------------|-----------------------|
+| GET    | `/api/health/`            | Health check          |
+| CRUD   | `/api/users/`             | Usuarios              |
+| CRUD   | `/api/trips/`             | Viajes                |
+| CRUD   | `/api/jams/`              | JAMs (grupos)         |
+| CRUD   | `/api/expenses/`          | Gastos                |
+| CRUD   | `/api/search/destinations/` | Motor de búsqueda   |
+
+---
+
+## Contribuir
+
+1. Crea una rama desde `main`: `git checkout -b feature/nombre`
+2. Haz tus cambios
+3. Abre un Pull Request describiendo el cambio
+
+Ver `docs/arquitectura.md` y `docs/decisiones.md` para contexto técnico.

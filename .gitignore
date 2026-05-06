@@ -1,16 +1,59 @@
-# Environment variables
-.env
-
-# Python bytecode
-*.pyc
+# ─── Python / Backend ────────────────────────────────────────────────────────
 __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.cache/
+*.coverage
+.tox/
+.mypy_cache/
+.pytest_cache/
 
-# AWS credentials and config
-.aws/
+# Django
+db.sqlite3
+*.sqlite3
+staticfiles/
+media/
 
-# Local data storage
-data/
-*.parquet
+# Environment
+.env
+.env.*
+!.env.example
 
-# OS generated files
+# Virtual environments
+.venv/
+venv/
+env/
+
+# ─── Frontend ────────────────────────────────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# ─── Docker ──────────────────────────────────────────────────────────────────
+*.log
+
+# ─── Terraform ───────────────────────────────────────────────────────────────
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.backup
+terraform.tfvars
+*.tfvars
+
+# ─── General ─────────────────────────────────────────────────────────────────
 .DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
