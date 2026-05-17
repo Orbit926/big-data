@@ -5,12 +5,12 @@ on:
     paths:
       - "backend/**"
       - "docker-compose.yml"
-      - ".github/workflows/jwt_auth_ci.yml"
+      - ".github/workflows/**"
   pull_request:
     paths:
       - "backend/**"
       - "docker-compose.yml"
-      - ".github/workflows/jwt_auth_ci.yml"
+      - ".github/workflows/**"
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Shared .env content — used by both jobs
@@ -292,12 +292,372 @@ jobs:
         run: docker compose down -v
 
   # ───────────────────────────────────────────────────────────────────────────
-  # JOB 3 — Gate: solo pasa si ambos jobs anteriores pasaron
+  # JOB 3 — Trips integration tests (Docker Compose real + curl)
+  # Depende de integration-tests para reusar el mismo patrón probado.
+  # ───────────────────────────────────────────────────────────────────────────
+  trips-tests:
+    name: "✈️  Trips Integration Tests (Docker)"
+    runs-on: ubuntu-latest
+    needs: [integration-tests]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── .env para el contenedor ────────────────────────────────────────────
+      - name: Write backend .env
+        run: |
+          cat > backend/.env <<'EOF'
+          SECRET_KEY=ci-test-secret-key-not-for-production
+          DEBUG=True
+          ALLOWED_HOSTS=localhost,127.0.0.1
+          JWT_ACCESS_MINUTES=15
+          JWT_REFRESH_DAYS=7
+          JWT_ACCESS_COOKIE_NAME=move_access_token
+          JWT_REFRESH_COOKIE_NAME=move_refresh_token
+          JWT_COOKIE_SECURE=False
+          JWT_COOKIE_SAMESITE=Lax
+          CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+          CSRF_TRUSTED_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+          EOF
+
+      # ── Levantar backend ───────────────────────────────────────────────────
+      - name: Build and start backend container
+        run: docker compose up -d --build backend
+
+      # ── Healthcheck ────────────────────────────────────────────────────────
+      - name: Wait for backend to be healthy
+        timeout-minutes: 3
+        run: |
+          echo "Waiting for backend healthcheck..."
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/health/ || echo "000")
+            echo "  Attempt $i — HTTP $STATUS"
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Backend is up!"
+              break
+            fi
+            if [ "$i" = "30" ]; then
+              echo "❌ Backend never became healthy"
+              docker compose logs backend
+              exit 1
+            fi
+            sleep 5
+          done
+
+      # ── Crear usuarios de prueba ───────────────────────────────────────────
+      # organizer → será el dueño de los viajes
+      # member    → será añadido como participante
+      - name: Create test users (organizer + member)
+        run: |
+          docker compose exec -T backend python manage.py shell -c "
+          from apps.users.models import User
+
+          if not User.objects.filter(username='trip_organizer').exists():
+              User.objects.create_user(
+                  username='trip_organizer',
+                  email='organizer@ci.test',
+                  password='ci-password-123'
+              )
+              print('✅ trip_organizer created')
+          else:
+              print('ℹ️  trip_organizer already exists')
+
+          if not User.objects.filter(username='trip_member').exists():
+              User.objects.create_user(
+                  username='trip_member',
+                  email='member@ci.test',
+                  password='ci-password-123'
+              )
+              print('✅ trip_member created')
+          else:
+              print('ℹ️  trip_member already exists')
+          "
+
+      # ── Login organizer → guarda cookies en /tmp/org_cookies.txt ──────────
+      - name: "Trips T1 — Login as organizer"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"trip_organizer","password":"ci-password-123"}' \
+            -c /tmp/org_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['user']['username'] == 'trip_organizer', f'Login failed: {d}'
+          print('✅ Organizer login OK')
+          "
+          grep -q "move_access_token" /tmp/org_cookies.txt && echo "✅ Access cookie set"
+
+      # ── Login member → guarda cookies en /tmp/mem_cookies.txt ─────────────
+      - name: "Trips T2 — Login as member"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"trip_member","password":"ci-password-123"}' \
+            -c /tmp/mem_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['user']['username'] == 'trip_member', f'Login failed: {d}'
+          print('✅ Member login OK')
+          "
+
+      # ── Obtener el PK de trip_member para usarlo en participant_ids ────────
+      - name: "Trips T3 — Resolve member PK"
+        run: |
+          MEMBER_PK=$(docker compose exec -T backend python manage.py shell -c "
+          from apps.users.models import User
+          print(User.objects.get(username='trip_member').pk)
+          ")
+          echo "MEMBER_PK=$MEMBER_PK" >> $GITHUB_ENV
+          echo "✅ trip_member PK = $MEMBER_PK"
+
+      # ── POST /api/trips/ → crear viaje donde organizer es owner ───────────
+      - name: "Trips T4 — POST /api/trips/ (crear viaje con participante)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/trips/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/org_cookies.txt \
+            -d "{\"name\":\"CI Road Trip\",\"description\":\"Auto-generated by CI\",\"start_date\":\"2026-07-01\",\"end_date\":\"2026-07-10\",\"participant_ids\":[$MEMBER_PK]}")
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert 'id'           in d, f'Missing id: {d}'
+          assert 'organizer'    in d, f'Missing organizer: {d}'
+          assert 'name'         in d, f'Missing name: {d}'
+          assert 'description'  in d, f'Missing description: {d}'
+          assert 'start_date'   in d, f'Missing start_date: {d}'
+          assert 'end_date'     in d, f'Missing end_date: {d}'
+          assert 'participants' in d, f'Missing participants: {d}'
+          assert 'created_at'   in d, f'Missing created_at: {d}'
+          assert 'updated_at'   in d, f'Missing updated_at: {d}'
+          assert d['organizer'] == 'trip_organizer', f'Wrong organizer: {d}'
+          assert d['name']      == 'CI Road Trip',   f'Wrong name: {d}'
+          assert 'trip_member'  in d['participants'], f'Member not in participants: {d}'
+          print(f\"✅ Trip created — id={d['id']}, organizer={d['organizer']}\")
+          with open('/tmp/trip_id.txt', 'w') as f:
+              f.write(str(d['id']))
+          "
+
+      # ── Leer el ID del viaje creado ────────────────────────────────────────
+      - name: "Trips T5 — Store trip ID in env"
+        run: |
+          TRIP_ID=$(cat /tmp/trip_id.txt)
+          echo "TRIP_ID=$TRIP_ID" >> $GITHUB_ENV
+          echo "✅ TRIP_ID=$TRIP_ID"
+
+      # ── GET /api/trips/ sin cookie → 401 ──────────────────────────────────
+      - name: "Trips T6 — GET /api/trips/ sin cookie → 401"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/trips/)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "401" ] && echo "✅ Unauthenticated list correctly rejected (401)" || \
+            (echo "❌ Expected 401, got $HTTP_CODE" && exit 1)
+
+      # ── GET /api/trips/ como organizer → debe ver el viaje ────────────────
+      - name: "Trips T7 — GET /api/trips/ como organizer"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/trips/ \
+            -b /tmp/org_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          trips = json.load(sys.stdin)
+          assert isinstance(trips, list), f'Expected list: {trips}'
+          names = [t['name'] for t in trips]
+          assert 'CI Road Trip' in names, f'Trip not in organizer list: {names}'
+          print(f'✅ Organizer sees {len(trips)} trip(s), including CI Road Trip')
+          "
+
+      # ── GET /api/trips/ como member → debe ver el viaje ───────────────────
+      - name: "Trips T8 — GET /api/trips/ como member"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/trips/ \
+            -b /tmp/mem_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          trips = json.load(sys.stdin)
+          names = [t['name'] for t in trips]
+          assert 'CI Road Trip' in names, f'Member cannot see their trip: {names}'
+          print('✅ Member correctly sees trips they participate in')
+          "
+
+      # ── GET /api/trips/<id>/ como organizer ───────────────────────────────
+      - name: "Trips T9 — GET /api/trips/<id>/ como organizer"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/trips/$TRIP_ID/ \
+            -b /tmp/org_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json, os
+          d = json.load(sys.stdin)
+          assert str(d['id']) == os.environ['TRIP_ID'], f'Wrong trip id: {d}'
+          assert d['organizer']   == 'trip_organizer', f'Wrong organizer: {d}'
+          assert d['name']        == 'CI Road Trip',   f'Wrong name: {d}'
+          assert d['start_date']  == '2026-07-01',     f'Wrong start_date: {d}'
+          assert d['end_date']    == '2026-07-10',     f'Wrong end_date: {d}'
+          assert 'trip_member' in d['participants'],   f'Member missing: {d}'
+          print('✅ Trip detail — all fields validated')
+          "
+
+      # ── GET /api/trips/<id>/ como member ──────────────────────────────────
+      - name: "Trips T10 — GET /api/trips/<id>/ como member"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            http://localhost:8000/api/trips/$TRIP_ID/ \
+            -b /tmp/mem_cookies.txt)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "200" ] && echo "✅ Member can read trip detail (200)" || \
+            (echo "❌ Expected 200, got $HTTP_CODE" && exit 1)
+
+      # ── GET /api/trips/<id>/ sin cookie → 401 ─────────────────────────────
+      - name: "Trips T11 — GET /api/trips/<id>/ sin cookie → 401"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            http://localhost:8000/api/trips/$TRIP_ID/)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "401" ] && echo "✅ Unauthenticated detail correctly rejected (401)" || \
+            (echo "❌ Expected 401, got $HTTP_CODE" && exit 1)
+
+      # ── PATCH /api/trips/<id>/ como organizer → 200 ───────────────────────
+      - name: "Trips T12 — PATCH /api/trips/<id>/ como organizer → 200"
+        run: |
+          RESPONSE=$(curl -s -X PATCH http://localhost:8000/api/trips/$TRIP_ID/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/org_cookies.txt \
+            -d '{"name":"CI Road Trip (edited)"}')
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['name'] == 'CI Road Trip (edited)', f'Update not applied: {d}'
+          print('✅ Organizer PATCH OK — name updated')
+          "
+
+      # ── PATCH /api/trips/<id>/ como member → 403 ──────────────────────────
+      - name: "Trips T13 — PATCH /api/trips/<id>/ como member → 403 Forbidden"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X PATCH http://localhost:8000/api/trips/$TRIP_ID/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/mem_cookies.txt \
+            -d '{"name":"Hijacked"}')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "403" ] && echo "✅ Member correctly blocked from editing (403)" || \
+            (echo "❌ Expected 403, got $HTTP_CODE" && exit 1)
+
+      # ── PUT /api/trips/<id>/ como organizer → 200 ─────────────────────────
+      - name: "Trips T14 — PUT /api/trips/<id>/ como organizer → 200"
+        run: |
+          RESPONSE=$(curl -s -X PUT http://localhost:8000/api/trips/$TRIP_ID/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/org_cookies.txt \
+            -d "{\"name\":\"CI Road Trip (PUT)\",\"description\":\"Full update via PUT\",\"start_date\":\"2026-08-01\",\"end_date\":\"2026-08-05\",\"participant_ids\":[$MEMBER_PK]}")
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['name']       == 'CI Road Trip (PUT)', f'PUT name wrong: {d}'
+          assert d['start_date'] == '2026-08-01',         f'PUT start_date wrong: {d}'
+          assert d['end_date']   == '2026-08-05',         f'PUT end_date wrong: {d}'
+          print('✅ Organizer PUT OK — all fields updated')
+          "
+
+      # ── PUT /api/trips/<id>/ como member → 403 ────────────────────────────
+      - name: "Trips T15 — PUT /api/trips/<id>/ como member → 403 Forbidden"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X PUT http://localhost:8000/api/trips/$TRIP_ID/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/mem_cookies.txt \
+            -d '{"name":"Hijacked"}')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "403" ] && echo "✅ Member correctly blocked from PUT (403)" || \
+            (echo "❌ Expected 403, got $HTTP_CODE" && exit 1)
+
+      # ── Crear un segundo viaje propiedad del member (organizer no lo ve) ───
+      - name: "Trips T16 — POST /api/trips/ como member (viaje propio)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/trips/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/mem_cookies.txt \
+            -d '{"name":"Member Only Trip","description":"Organizer should NOT see this"}')
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['organizer'] == 'trip_member', f'Wrong organizer: {d}'
+          print(f\"✅ Member's own trip created — id={d['id']}\")
+          with open('/tmp/mem_trip_id.txt', 'w') as f:
+              f.write(str(d['id']))
+          "
+
+      # ── GET /api/trips/ como organizer NO debe ver el viaje del member ─────
+      - name: "Trips T17 — Organizer no debe ver viaje privado del member"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/trips/ \
+            -b /tmp/org_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          trips = json.load(sys.stdin)
+          names = [t['name'] for t in trips]
+          assert 'Member Only Trip' not in names, f'Data leak — organizer sees member private trip: {names}'
+          print('✅ No data leak — organizer cannot see member private trip')
+          "
+
+      # ── DELETE /api/trips/<id>/ como member → 403 ─────────────────────────
+      - name: "Trips T18 — DELETE /api/trips/<id>/ como member → 403 Forbidden"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X DELETE http://localhost:8000/api/trips/$TRIP_ID/ \
+            -b /tmp/mem_cookies.txt)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "403" ] && echo "✅ Member correctly blocked from DELETE (403)" || \
+            (echo "❌ Expected 403, got $HTTP_CODE" && exit 1)
+
+      # ── DELETE /api/trips/<id>/ como organizer → 204 ──────────────────────
+      - name: "Trips T19 — DELETE /api/trips/<id>/ como organizer → 204"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X DELETE http://localhost:8000/api/trips/$TRIP_ID/ \
+            -b /tmp/org_cookies.txt)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "204" ] && echo "✅ Organizer DELETE OK (204)" || \
+            (echo "❌ Expected 204, got $HTTP_CODE" && exit 1)
+
+      # ── Verificar que el viaje fue eliminado → 404 ─────────────────────────
+      - name: "Trips T20 — GET viaje eliminado → 404"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            http://localhost:8000/api/trips/$TRIP_ID/ \
+            -b /tmp/org_cookies.txt)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "404" ] && echo "✅ Deleted trip correctly returns 404" || \
+            (echo "❌ Expected 404, got $HTTP_CODE" && exit 1)
+
+      # ── Logs del contenedor si algo falló ─────────────────────────────────
+      - name: Show container logs on failure
+        if: failure()
+        run: docker compose logs backend
+
+      # ── Siempre apagar el contenedor al final ─────────────────────────────
+      - name: Tear down containers
+        if: always()
+        run: docker compose down -v
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 4 — Gate: solo pasa si los tres jobs anteriores pasaron
   # ───────────────────────────────────────────────────────────────────────────
   ci-passed:
     name: "✅ CI Passed"
     runs-on: ubuntu-latest
-    needs: [unit-tests, integration-tests]
+    needs: [unit-tests, integration-tests, trips-tests]
     if: always()
 
     steps:
@@ -309,6 +669,10 @@ jobs:
           fi
           if [ "${{ needs.integration-tests.result }}" != "success" ]; then
             echo "❌ Integration tests failed"
+            exit 1
+          fi
+          if [ "${{ needs.trips-tests.result }}" != "success" ]; then
+            echo "❌ Trips integration tests failed"
             exit 1
           fi
           echo "✅ All CI jobs passed — ready to merge!"
