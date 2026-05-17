@@ -3,6 +3,7 @@ Authentication views for MOVE.
 
 Endpoints
 ---------
+POST /api/auth/register/ – create account + auto-login (issue JWT cookies)
 POST /api/auth/login/    – issue access + refresh tokens via HTTP-only cookies
 POST /api/auth/logout/   – clear both cookies
 POST /api/auth/refresh/  – rotate access token using refresh cookie
@@ -21,7 +22,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .backends import JWTCookieAuthentication
-from .serializers import LoginSerializer, UserMeSerializer
+from .serializers import LoginSerializer, RegisterSerializer, UserMeSerializer
 from .tokens import (
     clear_auth_cookies,
     decode_token,
@@ -180,3 +181,48 @@ class MeView(APIView):
     def get(self, request):
         serializer = UserMeSerializer(request.user)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class RegisterView(APIView):
+    """
+    POST /api/auth/register/
+
+    Body:
+        username        – required, unique
+        email           – required, unique
+        password        – required, min 8 chars
+        password_confirm – required, must match password
+        first_name      – optional
+        last_name       – optional
+
+    On success:
+        - Creates the user via apps.users.User (get_user_model()).
+        - Immediately issues JWT cookies so the user is logged in.
+        - Returns 201 with the new user's session profile.
+
+    Error responses:
+        400 – validation errors (duplicate username/email, password mismatch, etc.)
+    """
+
+    authentication_classes = []  # No auth required to register
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = RegisterSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        user = serializer.save()
+        access_token = generate_access_token(user)
+        refresh_token = generate_refresh_token(user)
+
+        response = Response(
+            {
+                "detail": "Account created successfully.",
+                "user": UserMeSerializer(user).data,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+        set_auth_cookies(response, access_token, refresh_token)
+        logger.info("New user registered: %s", user.username)
+        return response

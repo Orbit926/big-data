@@ -652,12 +652,234 @@ jobs:
         run: docker compose down -v
 
   # ───────────────────────────────────────────────────────────────────────────
-  # JOB 4 — Gate: solo pasa si los tres jobs anteriores pasaron
+  # JOB 4 — Register integration tests (Docker Compose real + curl)
+  # ───────────────────────────────────────────────────────────────────────────
+  register-tests:
+    name: "📝 Register Integration Tests (Docker)"
+    runs-on: ubuntu-latest
+    needs: [integration-tests]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── .env para el contenedor ────────────────────────────────────────────
+      - name: Write backend .env
+        run: |
+          cat > backend/.env <<'EOF'
+          SECRET_KEY=ci-test-secret-key-not-for-production
+          DEBUG=True
+          ALLOWED_HOSTS=localhost,127.0.0.1
+          JWT_ACCESS_MINUTES=15
+          JWT_REFRESH_DAYS=7
+          JWT_ACCESS_COOKIE_NAME=move_access_token
+          JWT_REFRESH_COOKIE_NAME=move_refresh_token
+          JWT_COOKIE_SECURE=False
+          JWT_COOKIE_SAMESITE=Lax
+          CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+          CSRF_TRUSTED_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+          EOF
+
+      # ── Levantar backend ───────────────────────────────────────────────────
+      - name: Build and start backend container
+        run: docker compose up -d --build backend
+
+      # ── Healthcheck ────────────────────────────────────────────────────────
+      - name: Wait for backend to be healthy
+        timeout-minutes: 3
+        run: |
+          echo "Waiting for backend healthcheck..."
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/health/ || echo "000")
+            echo "  Attempt $i — HTTP $STATUS"
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Backend is up!"
+              break
+            fi
+            if [ "$i" = "30" ]; then
+              echo "❌ Backend never became healthy"
+              docker compose logs backend
+              exit 1
+            fi
+            sleep 5
+          done
+
+      # ── R1: Registro exitoso → 201 + cookies + campos correctos ───────────
+      - name: "Register R1 — POST /api/auth/register/ (registro exitoso)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/register/ \
+            -H "Content-Type: application/json" \
+            -c /tmp/reg_cookies.txt \
+            -d '{
+              "username": "reg_user",
+              "email": "reg@ci.test",
+              "password": "StrongPass123!",
+              "password_confirm": "StrongPass123!"
+            }')
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert 'detail' in d,          f'Missing detail: {d}'
+          assert 'user'   in d,          f'Missing user: {d}'
+          assert d['user']['username'] == 'reg_user',   f'Wrong username: {d}'
+          assert d['user']['email']    == 'reg@ci.test', f'Wrong email: {d}'
+          assert 'password' not in d['user'],            f'Password leaked in response: {d}'
+          print('✅ Register R1 — response body OK')
+          "
+          # Verificar cookies HTTP-only
+          grep -q "move_access_token"  /tmp/reg_cookies.txt && echo "✅ Access cookie set"
+          grep -q "move_refresh_token" /tmp/reg_cookies.txt && echo "✅ Refresh cookie set"
+          grep -q "HttpOnly"           /tmp/reg_cookies.txt && echo "✅ Cookies are HttpOnly"
+
+      # ── R2: Auto-login → cookies permiten acceder a /api/auth/me/ ───────
+      - name: "Register R2 — Auto-login: /api/auth/me/ accesible tras registro"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/auth/me/ \
+            -b /tmp/reg_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['username'] == 'reg_user', f'Wrong user in me: {d}'
+          print('✅ Register R2 — auto-login OK, /me/ accessible')
+          "
+
+      # ── R3: /me/ sin cookie → 401 ───────────────────────────────────
+      - name: "Register R3 — /api/auth/me/ sin cookie → 401"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/auth/me/)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "401" ] && echo "✅ Register R3 — unauthenticated correctly rejected (401)" || \
+            (echo "❌ Expected 401, got $HTTP_CODE" && exit 1)
+
+      # ── R4: Username duplicado → 400 ─────────────────────────────────
+      - name: "Register R4 — username duplicado → 400"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/auth/register/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "username": "reg_user",
+              "email": "other@ci.test",
+              "password": "StrongPass123!",
+              "password_confirm": "StrongPass123!"
+            }')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "400" ] && echo "✅ Register R4 — duplicate username correctly rejected (400)" || \
+            (echo "❌ Expected 400, got $HTTP_CODE" && exit 1)
+
+      # ── R5: Email duplicado → 400 ──────────────────────────────────
+      - name: "Register R5 — email duplicado → 400"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/auth/register/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "username": "other_user",
+              "email": "reg@ci.test",
+              "password": "StrongPass123!",
+              "password_confirm": "StrongPass123!"
+            }')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "400" ] && echo "✅ Register R5 — duplicate email correctly rejected (400)" || \
+            (echo "❌ Expected 400, got $HTTP_CODE" && exit 1)
+
+      # ── R6: Passwords no coinciden → 400 ────────────────────────────
+      - name: "Register R6 — passwords no coinciden → 400"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/register/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "username": "mismatch_user",
+              "email": "mismatch@ci.test",
+              "password": "StrongPass123!",
+              "password_confirm": "DifferentPass!"
+            }')
+          echo "Response: $RESPONSE"
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/auth/register/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "username": "mismatch_user2",
+              "email": "mismatch2@ci.test",
+              "password": "StrongPass123!",
+              "password_confirm": "DifferentPass!"
+            }')
+          [ "$HTTP_CODE" = "400" ] && echo "✅ Register R6 — password mismatch correctly rejected (400)" || \
+            (echo "❌ Expected 400, got $HTTP_CODE" && exit 1)
+
+      # ── R7: Password débil → 400 ──────────────────────────────────
+      - name: "Register R7 — password muy corto → 400"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/auth/register/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "username": "weak_user",
+              "email": "weak@ci.test",
+              "password": "abc",
+              "password_confirm": "abc"
+            }')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "400" ] && echo "✅ Register R7 — weak password correctly rejected (400)" || \
+            (echo "❌ Expected 400, got $HTTP_CODE" && exit 1)
+
+      # ── R8: Campos requeridos faltantes → 400 ────────────────────────
+      - name: "Register R8 — payload incompleto (sin email) → 400"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/auth/register/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "username": "incomplete_user",
+              "password": "StrongPass123!",
+              "password_confirm": "StrongPass123!"
+            }')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "400" ] && echo "✅ Register R8 — incomplete payload correctly rejected (400)" || \
+            (echo "❌ Expected 400, got $HTTP_CODE" && exit 1)
+
+      # ── R9: Registro con nombre opcional → almacenado correctamente ─────
+      - name: "Register R9 — registro con first_name y last_name (opcionales)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/register/ \
+            -H "Content-Type: application/json" \
+            -d '{
+              "username": "named_user",
+              "email": "named@ci.test",
+              "password": "StrongPass123!",
+              "password_confirm": "StrongPass123!",
+              "first_name": "Jane",
+              "last_name": "Doe"
+            }')
+          echo "Response: $RESPONSE"
+          # Verificar en DB que los campos se guardaron
+          docker compose exec -T backend python manage.py shell -c "
+          from apps.users.models import User
+          u = User.objects.get(username='named_user')
+          assert u.first_name == 'Jane', f'first_name wrong: {u.first_name}'
+          assert u.last_name  == 'Doe',  f'last_name wrong: {u.last_name}'
+          print('✅ Register R9 — optional name fields stored correctly')
+          "
+
+      # ── Logs si falla ───────────────────────────────────────────────────
+      - name: Show container logs on failure
+        if: failure()
+        run: docker compose logs backend
+
+      # ── Tear down ────────────────────────────────────────────────────────
+      - name: Tear down containers
+        if: always()
+        run: docker compose down -v
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 5 — Gate: solo pasa si los cuatro jobs anteriores pasaron
   # ───────────────────────────────────────────────────────────────────────────
   ci-passed:
     name: "✅ CI Passed"
     runs-on: ubuntu-latest
-    needs: [unit-tests, integration-tests, trips-tests]
+    needs: [unit-tests, integration-tests, trips-tests, register-tests]
     if: always()
 
     steps:
@@ -673,6 +895,10 @@ jobs:
           fi
           if [ "${{ needs.trips-tests.result }}" != "success" ]; then
             echo "❌ Trips integration tests failed"
+            exit 1
+          fi
+          if [ "${{ needs.register-tests.result }}" != "success" ]; then
+            echo "❌ Register integration tests failed"
             exit 1
           fi
           echo "✅ All CI jobs passed — ready to merge!"
