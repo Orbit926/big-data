@@ -252,3 +252,101 @@ class LogoutViewTests(TestCase):
         """Logout without cookies should still return 200."""
         res = self.client.post(self.url)
         self.assertEqual(res.status_code, status.HTTP_200_OK)
+
+
+@override_settings(**JWT_TEST_SETTINGS)
+class RegisterViewTests(TestCase):
+    """POST /api/auth/register/"""
+
+    def setUp(self):
+        self.client = APIClient()
+        self.url = reverse("authentication:register")
+        self.valid_payload = {
+            "username": "newuser",
+            "email": "newuser@example.com",
+            "password": "StrongPass123!",
+            "password_confirm": "StrongPass123!",
+        }
+
+    # ── Happy path ────────────────────────────────────────────────────────────
+
+    def test_register_creates_user(self):
+        """Successful registration creates a User via apps.users.User model."""
+        res = self.client.post(self.url, self.valid_payload, format="json")
+        self.assertEqual(res.status_code, status.HTTP_201_CREATED)
+        self.assertTrue(User.objects.filter(username="newuser").exists())
+
+    def test_register_returns_user_data(self):
+        """Response body contains 'detail' and 'user' with correct username."""
+        res = self.client.post(self.url, self.valid_payload, format="json")
+        self.assertIn("detail", res.data)
+        self.assertIn("user", res.data)
+        self.assertEqual(res.data["user"]["username"], "newuser")
+
+    def test_register_issues_access_cookie(self):
+        """HTTP-only access cookie is set on successful registration."""
+        res = self.client.post(self.url, self.valid_payload, format="json")
+        self.assertIn("move_access_token", res.cookies)
+        self.assertTrue(res.cookies["move_access_token"]["httponly"])
+
+    def test_register_issues_refresh_cookie(self):
+        """HTTP-only refresh cookie is set on successful registration."""
+        res = self.client.post(self.url, self.valid_payload, format="json")
+        self.assertIn("move_refresh_token", res.cookies)
+        self.assertTrue(res.cookies["move_refresh_token"]["httponly"])
+
+    def test_register_auto_login_me_accessible(self):
+        """After registration the issued cookies allow accessing /me/."""
+        res = self.client.post(self.url, self.valid_payload, format="json")
+        # Carry the cookies over to the next request
+        self.client.cookies["move_access_token"] = res.cookies["move_access_token"].value
+        me_res = self.client.get(reverse("authentication:me"))
+        self.assertEqual(me_res.status_code, status.HTTP_200_OK)
+        self.assertEqual(me_res.data["username"], "newuser")
+
+    def test_register_with_optional_name_fields(self):
+        """first_name and last_name are optional and stored correctly."""
+        payload = {**self.valid_payload, "first_name": "John", "last_name": "Doe"}
+        self.client.post(self.url, payload, format="json")
+        user = User.objects.get(username="newuser")
+        self.assertEqual(user.first_name, "John")
+        self.assertEqual(user.last_name, "Doe")
+
+    # ── Duplicate detection ────────────────────────────────────────────────────
+
+    def test_register_duplicate_username_returns_400(self):
+        """Username uniqueness is enforced (case-insensitive)."""
+        _make_user(username="newuser", email="other@example.com")
+        res = self.client.post(self.url, self.valid_payload, format="json")
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("username", res.data)
+
+    def test_register_duplicate_email_returns_400(self):
+        """Email uniqueness is enforced (case-insensitive)."""
+        _make_user(username="otheruser", email="newuser@example.com")
+        res = self.client.post(self.url, self.valid_payload, format="json")
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("email", res.data)
+
+    # ── Validation errors ──────────────────────────────────────────────────────
+
+    def test_register_password_mismatch_returns_400(self):
+        payload = {**self.valid_payload, "password_confirm": "DifferentPass!"}
+        res = self.client.post(self.url, payload, format="json")
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertIn("password_confirm", res.data)
+
+    def test_register_missing_email_returns_400(self):
+        payload = {k: v for k, v in self.valid_payload.items() if k != "email"}
+        res = self.client.post(self.url, payload, format="json")
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_register_missing_username_returns_400(self):
+        payload = {k: v for k, v in self.valid_payload.items() if k != "username"}
+        res = self.client.post(self.url, payload, format="json")
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_register_short_password_returns_400(self):
+        payload = {**self.valid_payload, "password": "short", "password_confirm": "short"}
+        res = self.client.post(self.url, payload, format="json")
+        self.assertEqual(res.status_code, status.HTTP_400_BAD_REQUEST)
