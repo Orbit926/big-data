@@ -22,6 +22,7 @@
 move/
 ├── backend/           → API REST (Django + DRF)
 │   ├── apps/
+│   │   ├── authentication/
 │   │   ├── users/
 │   │   ├── trips/
 │   │   ├── jams/
