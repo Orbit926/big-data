@@ -25,6 +25,7 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "apps.users",
+    "apps.authentication",
     "apps.trips",
     "apps.jams",
     "apps.expenses",
@@ -90,8 +91,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "users.User"
 
+# ─────────────────────────────────────────────────────────────────────────────
+# Django REST Framework
+# ─────────────────────────────────────────────────────────────────────────────
+
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "apps.authentication.backends.JWTCookieAuthentication",
+    ],
     "DEFAULT_PERMISSION_CLASSES": [
+        # Individual views declare their own; default remains open for
+        # backward-compatibility with existing endpoints.
         "rest_framework.permissions.AllowAny",
     ],
     "DEFAULT_RENDERER_CLASSES": [
@@ -99,4 +109,52 @@ REST_FRAMEWORK = {
     ],
 }
 
-CORS_ALLOW_ALL_ORIGINS = DEBUG
+# ─────────────────────────────────────────────────────────────────────────────
+# JWT configuration  (values come from .env)
+# ─────────────────────────────────────────────────────────────────────────────
+
+JWT_ACCESS_MINUTES = config("JWT_ACCESS_MINUTES", default=15, cast=int)
+JWT_REFRESH_DAYS = config("JWT_REFRESH_DAYS", default=7, cast=int)
+JWT_ACCESS_COOKIE_NAME = config("JWT_ACCESS_COOKIE_NAME", default="move_access_token")
+JWT_REFRESH_COOKIE_NAME = config("JWT_REFRESH_COOKIE_NAME", default="move_refresh_token")
+JWT_COOKIE_SECURE = config("JWT_COOKIE_SECURE", default=False, cast=bool)
+JWT_COOKIE_SAMESITE = config("JWT_COOKIE_SAMESITE", default="Lax")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CORS — credentials must be allowed so the browser sends cookies cross-origin
+# ─────────────────────────────────────────────────────────────────────────────
+
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOW_ALL_ORIGINS = False
+    CORS_ALLOWED_ORIGINS = config(
+        "CORS_ALLOWED_ORIGINS",
+        default="http://localhost:5173,http://localhost:3000",
+    ).split(",")
+
+# Required so the browser includes cookies in cross-origin requests.
+CORS_ALLOW_CREDENTIALS = True
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CSRF — trust the same origins that CORS allows
+# ─────────────────────────────────────────────────────────────────────────────
+
+CSRF_TRUSTED_ORIGINS = config(
+    "CSRF_TRUSTED_ORIGINS",
+    default="http://localhost:5173,http://localhost:3000,http://localhost",
+).split(",")
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Security headers (auto-enabled in production)
+# ─────────────────────────────────────────────────────────────────────────────
+
+if not DEBUG:
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = "DENY"
+    SECURE_HSTS_SECONDS = 31536000
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
