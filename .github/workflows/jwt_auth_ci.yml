@@ -1,0 +1,314 @@
+name: JWT Auth CI
+
+on:
+  push:
+    paths:
+      - "backend/**"
+      - "docker-compose.yml"
+      - ".github/workflows/jwt_auth_ci.yml"
+  pull_request:
+    paths:
+      - "backend/**"
+      - "docker-compose.yml"
+      - ".github/workflows/jwt_auth_ci.yml"
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Shared .env content — used by both jobs
+# ─────────────────────────────────────────────────────────────────────────────
+env:
+  SECRET_KEY: ci-test-secret-key-not-for-production
+  DEBUG: "True"
+  ALLOWED_HOSTS: "localhost,127.0.0.1"
+  JWT_ACCESS_MINUTES: "15"
+  JWT_REFRESH_DAYS: "7"
+  JWT_ACCESS_COOKIE_NAME: "move_access_token"
+  JWT_REFRESH_COOKIE_NAME: "move_refresh_token"
+  JWT_COOKIE_SECURE: "False"
+  JWT_COOKIE_SAMESITE: "Lax"
+  CORS_ALLOWED_ORIGINS: "http://localhost:5173,http://localhost:3000"
+  CSRF_TRUSTED_ORIGINS: "http://localhost:5173,http://localhost:3000,http://localhost"
+
+jobs:
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 1 — Unit tests (Python puro, sin Docker, muy rápido)
+  # ───────────────────────────────────────────────────────────────────────────
+  unit-tests:
+    name: "🧪 Unit Tests (Python)"
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write CI .env
+        run: |
+          cat > .env <<'EOF'
+          SECRET_KEY=ci-test-secret-key-not-for-production
+          DEBUG=True
+          ALLOWED_HOSTS=localhost,127.0.0.1
+          JWT_ACCESS_MINUTES=15
+          JWT_REFRESH_DAYS=7
+          JWT_ACCESS_COOKIE_NAME=move_access_token
+          JWT_REFRESH_COOKIE_NAME=move_refresh_token
+          JWT_COOKIE_SECURE=False
+          JWT_COOKIE_SAMESITE=Lax
+          CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+          CSRF_TRUSTED_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+          EOF
+
+      - name: Generate migrations
+        run: python manage.py makemigrations --no-input
+
+      - name: Apply migrations
+        run: python manage.py migrate --no-input
+
+      - name: "🔐 JWT Auth tests"
+        run: |
+          python manage.py test apps.authentication \
+            --verbosity=2 \
+            --failfast
+
+      - name: "📦 Full test suite"
+        run: python manage.py test --verbosity=1
+
+      - name: Django system check
+        run: python manage.py check 2>&1 || true
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 2 — Integration tests (Docker Compose real + curl contra la API)
+  # ───────────────────────────────────────────────────────────────────────────
+  integration-tests:
+    name: "🐳 Integration Tests (Docker)"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── Escribir .env para el contenedor ───────────────────────────────────
+      - name: Write backend .env
+        run: |
+          cat > backend/.env <<'EOF'
+          SECRET_KEY=ci-test-secret-key-not-for-production
+          DEBUG=True
+          ALLOWED_HOSTS=localhost,127.0.0.1
+          JWT_ACCESS_MINUTES=15
+          JWT_REFRESH_DAYS=7
+          JWT_ACCESS_COOKIE_NAME=move_access_token
+          JWT_REFRESH_COOKIE_NAME=move_refresh_token
+          JWT_COOKIE_SECURE=False
+          JWT_COOKIE_SAMESITE=Lax
+          CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+          CSRF_TRUSTED_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+          EOF
+
+      # ── Levantar solo el backend (sin frontend) ───────────────────────────
+      - name: Build and start backend container
+        run: docker compose up -d --build backend
+
+      # ── Esperar a que el healthcheck pase ─────────────────────────────────
+      - name: Wait for backend to be healthy
+        timeout-minutes: 3
+        run: |
+          echo "Waiting for backend healthcheck..."
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/health/ || echo "000")
+            echo "  Attempt $i — HTTP $STATUS"
+            if [ "$STATUS" = "200" ]; then
+              echo "✅ Backend is up!"
+              break
+            fi
+            if [ "$i" = "30" ]; then
+              echo "❌ Backend never became healthy"
+              docker compose logs backend
+              exit 1
+            fi
+            sleep 5
+          done
+
+      # ── Crear usuario de prueba en el contenedor ──────────────────────────
+      - name: Create test user
+        run: |
+          docker compose exec -T backend python manage.py shell -c "
+          from apps.users.models import User
+          if not User.objects.filter(username='ciuser').exists():
+              User.objects.create_user(username='ciuser', email='ci@example.com', password='ci-password-123')
+              print('✅ Test user created')
+          else:
+              print('ℹ️  Test user already exists')
+          "
+
+      # ── Test 1: Healthcheck ───────────────────────────────────────────────
+      - name: "Test 1 — GET /api/health/"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/health/)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | grep -q '"status": "ok"' || \
+          echo "$RESPONSE" | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['status']=='ok', 'health check failed'"
+          echo "✅ Health check passed"
+
+      # ── Test 2: Login ─────────────────────────────────────────────────────
+      - name: "Test 2 — POST /api/auth/login/"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"ciuser","password":"ci-password-123"}' \
+            -c /tmp/ci_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert 'user' in d, f'Missing user in response: {d}'
+          assert d['user']['username'] == 'ciuser', f'Wrong username: {d}'
+          print('✅ Login test passed')
+          "
+          # Verificar que las cookies existen
+          grep -q "move_access_token" /tmp/ci_cookies.txt  && echo "✅ Access cookie set"
+          grep -q "move_refresh_token" /tmp/ci_cookies.txt && echo "✅ Refresh cookie set"
+          grep -q "HttpOnly" /tmp/ci_cookies.txt           && echo "✅ Cookies are HttpOnly"
+
+      # ── Test 3: Me ────────────────────────────────────────────────────────
+      - name: "Test 3 — GET /api/auth/me/"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/auth/me/ \
+            -b /tmp/ci_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['username'] == 'ciuser', f'Wrong user: {d}'
+          assert d['email'] == 'ci@example.com', f'Wrong email: {d}'
+          print('✅ /me/ test passed')
+          "
+
+      # ── Test 4: Me sin cookie → 401 ───────────────────────────────────────
+      - name: "Test 4 — GET /api/auth/me/ (sin cookie → debe ser 401)"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/auth/me/)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "401" ] && echo "✅ Unauthenticated request correctly rejected (401)" || \
+            (echo "❌ Expected 401, got $HTTP_CODE" && exit 1)
+
+      # ── Test 5: Refresh ───────────────────────────────────────────────────
+      - name: "Test 5 — POST /api/auth/refresh/"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/refresh/ \
+            -b /tmp/ci_cookies.txt \
+            -c /tmp/ci_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert 'detail' in d, f'Unexpected response: {d}'
+          print('✅ Refresh test passed')
+          "
+
+      # ── Test 6: Me después del refresh ────────────────────────────────────
+      - name: "Test 6 — GET /api/auth/me/ (post-refresh)"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/auth/me/ \
+            -b /tmp/ci_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['username'] == 'ciuser', f'User not authenticated after refresh: {d}'
+          print('✅ Session still valid after refresh')
+          "
+
+      # ── Test 7: Login con email ───────────────────────────────────────────
+      - name: "Test 7 — POST /api/auth/login/ (con email)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"ci@example.com","password":"ci-password-123"}' \
+            -c /tmp/ci_cookies2.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['user']['username'] == 'ciuser', f'Email login failed: {d}'
+          print('✅ Login with email passed')
+          "
+
+      # ── Test 8: Login con credenciales inválidas ──────────────────────────
+      - name: "Test 8 — POST /api/auth/login/ (password incorrecto → 400)"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"ciuser","password":"wrongpass"}')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "400" ] && echo "✅ Invalid credentials correctly rejected (400)" || \
+            (echo "❌ Expected 400, got $HTTP_CODE" && exit 1)
+
+      # ── Test 9: Logout ────────────────────────────────────────────────────
+      - name: "Test 9 — POST /api/auth/logout/"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/logout/ \
+            -b /tmp/ci_cookies.txt \
+            -c /tmp/ci_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert 'detail' in d, f'Unexpected response: {d}'
+          print('✅ Logout test passed')
+          "
+
+      # ── Test 10: Me después del logout → 401 ──────────────────────────────
+      - name: "Test 10 — GET /api/auth/me/ (post-logout → debe ser 401)"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            http://localhost:8000/api/auth/me/ \
+            -b /tmp/ci_cookies.txt)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "401" ] && echo "✅ Session correctly invalidated after logout (401)" || \
+            (echo "❌ Expected 401, got $HTTP_CODE" && exit 1)
+
+      # ── Logs del contenedor si algo falló ─────────────────────────────────
+      - name: Show container logs on failure
+        if: failure()
+        run: docker compose logs backend
+
+      # ── Siempre apagar el contenedor al final ─────────────────────────────
+      - name: Tear down containers
+        if: always()
+        run: docker compose down -v
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 3 — Gate: solo pasa si ambos jobs anteriores pasaron
+  # ───────────────────────────────────────────────────────────────────────────
+  ci-passed:
+    name: "✅ CI Passed"
+    runs-on: ubuntu-latest
+    needs: [unit-tests, integration-tests]
+    if: always()
+
+    steps:
+      - name: Check all jobs passed
+        run: |
+          if [ "${{ needs.unit-tests.result }}" != "success" ]; then
+            echo "❌ Unit tests failed"
+            exit 1
+          fi
+          if [ "${{ needs.integration-tests.result }}" != "success" ]; then
+            echo "❌ Integration tests failed"
+            exit 1
+          fi
+          echo "✅ All CI jobs passed — ready to merge!"

@@ -1,7 +1,10 @@
 #!/bin/sh
 set -e
 
-echo "Running migrations..."
+echo "Detecting model changes and generating migrations..."
+python manage.py makemigrations --no-input
+
+echo "Applying migrations..."
 python manage.py migrate --noinput
 
 echo "Collecting static files..."
