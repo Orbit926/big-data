@@ -1,0 +1,81 @@
+name: Backend Register Tests
+
+on:
+  push:
+    paths:
+      - "backend/apps/authentication/**"
+      - "backend/apps/users/**"
+      - "backend/config/**"
+      - "backend/requirements.txt"
+      - ".github/workflows/backend-register.yml"
+  pull_request:
+    paths:
+      - "backend/apps/authentication/**"
+      - "backend/apps/users/**"
+      - "backend/config/**"
+      - "backend/requirements.txt"
+      - ".github/workflows/backend-register.yml"
+
+env:
+  SECRET_KEY: ci-test-secret-key-not-for-production
+  DEBUG: "True"
+  ALLOWED_HOSTS: "localhost,127.0.0.1"
+  JWT_ACCESS_MINUTES: "15"
+  JWT_REFRESH_DAYS: "7"
+  JWT_ACCESS_COOKIE_NAME: "move_access_token"
+  JWT_REFRESH_COOKIE_NAME: "move_refresh_token"
+  JWT_COOKIE_SECURE: "False"
+  JWT_COOKIE_SAMESITE: "Lax"
+  CORS_ALLOWED_ORIGINS: "http://localhost:5173,http://localhost:3000"
+  CSRF_TRUSTED_ORIGINS: "http://localhost:5173,http://localhost:3000,http://localhost"
+
+jobs:
+  register-tests:
+    name: Register tests
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Write CI .env
+        run: |
+          cat > .env <<'EOF'
+          SECRET_KEY=ci-test-secret-key-not-for-production
+          DEBUG=True
+          ALLOWED_HOSTS=localhost,127.0.0.1
+          JWT_ACCESS_MINUTES=15
+          JWT_REFRESH_DAYS=7
+          JWT_ACCESS_COOKIE_NAME=move_access_token
+          JWT_REFRESH_COOKIE_NAME=move_refresh_token
+          JWT_COOKIE_SECURE=False
+          JWT_COOKIE_SAMESITE=Lax
+          CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+          CSRF_TRUSTED_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+          EOF
+
+      - name: Check migrations are committed
+        run: python manage.py makemigrations --check --dry-run
+
+      - name: Apply migrations
+        run: python manage.py migrate --no-input
+
+      - name: Run registration-related tests
+        run: python manage.py test apps.authentication apps.users --verbosity=2 --failfast
+
+      - name: Django system check
+        run: python manage.py check
