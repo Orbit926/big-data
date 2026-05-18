@@ -1214,12 +1214,12 @@ jobs:
         run: docker compose down -v
 
   # ───────────────────────────────────────────────────────────────────────────
-  # JOB 6 — Gate: solo pasa si los cinco jobs anteriores pasaron
+  # JOB 8 — Gate: pasa solo si los siete jobs anteriores pasaron
   # ───────────────────────────────────────────────────────────────────────────
   ci-passed:
     name: "✅ CI Passed"
     runs-on: ubuntu-latest
-    needs: [unit-tests, integration-tests, trips-tests, register-tests, jams-tests]
+    needs: [unit-tests, integration-tests, trips-tests, register-tests, jams-tests, expenses-tests]
     if: always()
 
     steps:
@@ -1240,4 +1240,240 @@ jobs:
           if [ "${{ needs.jams-tests.result }}" != "success" ]; then
             echo "❌ JAMs integration tests failed"; exit 1
           fi
+          if [ "${{ needs.expenses-tests.result }}" != "success" ]; then
+            echo "❌ Expenses integration tests failed"; exit 1
+          fi
           echo "✅ All CI jobs passed — ready to merge!"
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # JOB 7 — Expenses integration tests (Docker + JWT cookies reales)
+  # ─────────────────────────────────────────────────────────────────────────
+  expenses-tests:
+    name: "💸 Expenses Integration Tests (Docker)"
+    runs-on: ubuntu-latest
+    needs: [jams-tests]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Write backend .env
+        run: |
+          cat > backend/.env <<'EOF'
+          SECRET_KEY=ci-test-secret-key-not-for-production
+          DEBUG=True
+          ALLOWED_HOSTS=localhost,127.0.0.1
+          JWT_ACCESS_MINUTES=15
+          JWT_REFRESH_DAYS=7
+          JWT_ACCESS_COOKIE_NAME=move_access_token
+          JWT_REFRESH_COOKIE_NAME=move_refresh_token
+          JWT_COOKIE_SECURE=False
+          JWT_COOKIE_SAMESITE=Lax
+          CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+          CSRF_TRUSTED_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+          EOF
+
+      - name: Build and start backend container
+        run: docker compose up -d --build backend
+
+      - name: Wait for backend to be healthy
+        timeout-minutes: 3
+        run: |
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/health/ || echo "000")
+            echo "  Attempt $i — HTTP $STATUS"
+            if [ "$STATUS" = "200" ]; then echo "✅ Backend is up!"; break; fi
+            if [ "$i" = "30" ]; then echo "❌ Never healthy"; docker compose logs backend; exit 1; fi
+            sleep 5
+          done
+
+      - name: "Expenses Setup — Create users"
+        run: |
+          docker compose exec -T backend python manage.py shell -c "
+          from apps.users.models import User
+          for uname, email in [('exp_admin','exp_admin@ci.test'),('exp_member','exp_member@ci.test'),('exp_outsider','exp_outsider@ci.test')]:
+              if not User.objects.filter(username=uname).exists():
+                  User.objects.create_user(username=uname, email=email, password='ci-password-123')
+                  print(f'created {uname}')
+          "
+
+      - name: "Expenses E1 — Login exp_admin"
+        run: |
+          curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"exp_admin","password":"ci-password-123"}' \
+            -c /tmp/exp_admin.txt > /dev/null
+          grep -q "move_access_token" /tmp/exp_admin.txt && echo "✅ exp_admin cookie set"
+
+      - name: "Expenses E2 — Login exp_member"
+        run: |
+          curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"exp_member","password":"ci-password-123"}' \
+            -c /tmp/exp_member.txt > /dev/null
+          grep -q "move_access_token" /tmp/exp_member.txt && echo "✅ exp_member cookie set"
+
+      - name: "Expenses E3 — Login exp_outsider"
+        run: |
+          curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"exp_outsider","password":"ci-password-123"}' \
+            -c /tmp/exp_outsider.txt > /dev/null
+          grep -q "move_access_token" /tmp/exp_outsider.txt && echo "✅ exp_outsider cookie set"
+
+      - name: "Expenses Setup — Resolve PKs and create Trip+JAM"
+        run: |
+          docker compose exec -T backend python manage.py shell -c "
+          from apps.users.models import User
+          from apps.trips.models import Trip
+          from apps.jams.models import Jam, JamMember
+          admin  = User.objects.get(username='exp_admin')
+          member = User.objects.get(username='exp_member')
+          trip = Trip.objects.create(name='Expense CI Trip', organizer=admin)
+          trip.participants.add(member)
+          jam = Jam.objects.create(trip=trip, name='Expense CI JAM', created_by=admin)
+          JamMember.objects.create(jam=jam, user=member, role='member', status='active')
+          print(f'JAM_ID={jam.pk}')
+          print(f'MEMBER_PK={member.pk}')
+          " | tee /tmp/setup.txt
+          JAM_ID=$(grep JAM_ID /tmp/setup.txt | cut -d= -f2 | tr -d '[:space:]')
+          MEMBER_PK=$(grep MEMBER_PK /tmp/setup.txt | cut -d= -f2 | tr -d '[:space:]')
+          echo "EXP_JAM_ID=$JAM_ID"    >> $GITHUB_ENV
+          echo "EXP_MEMBER_PK=$MEMBER_PK" >> $GITHUB_ENV
+          echo "✅ JAM=$JAM_ID MEMBER_PK=$MEMBER_PK"
+
+      - name: "Expenses E4 — No cookie → 401"
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/jams/$EXP_JAM_ID/expenses/)
+          [ "$CODE" = "401" ] && echo "✅ 401 OK" || (echo "❌ Expected 401 got $CODE" && exit 1)
+
+      - name: "Expenses E5 — Outsider cannot create expense → 403"
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/jams/$EXP_JAM_ID/expenses/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/exp_outsider.txt \
+            -d '{"title":"Hack","amount":"50.00","split_type":"equal","participant_ids":[1]}')
+          [ "$CODE" = "403" ] && echo "✅ 403 OK" || (echo "❌ Expected 403 got $CODE" && exit 1)
+
+      - name: "Expenses E6 — Create equal expense with real JWT cookie → 201"
+        run: |
+          R=$(curl -s -X POST http://localhost:8000/api/jams/$EXP_JAM_ID/expenses/ \
+            -H "Content-Type: application/json" -b /tmp/exp_admin.txt \
+            -d "{\"title\":\"CI Dinner\",\"amount\":\"120.00\",\"split_type\":\"equal\",\"category\":\"food\",\"participant_ids\":[$EXP_MEMBER_PK]}")
+          echo "Response: $R"
+          EXP_ID=$(echo "$R" | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['title']=='CI Dinner'; print(d['id'])")
+          echo "EXP_ID=$EXP_ID" >> $GITHUB_ENV
+          echo "✅ Expense created id=$EXP_ID"
+
+      - name: "Expenses E7 — GET splits → member split is pending"
+        run: |
+          R=$(curl -s http://localhost:8000/api/expenses/$EXP_ID/splits/ -b /tmp/exp_admin.txt)
+          echo "Response: $R"
+          SPLIT_ID=$(echo "$R" | python3 -c "
+          import sys,json; s=json.load(sys.stdin)[0]
+          assert s['status']=='pending'; print(s['id'])
+          ")
+          echo "EXP_SPLIT_ID=$SPLIT_ID" >> $GITHUB_ENV
+          echo "✅ Split pending id=$SPLIT_ID"
+
+      - name: "Expenses E8 — member marks own split paid → 200"
+        run: |
+          R=$(curl -s -X PATCH \
+            http://localhost:8000/api/expenses/$EXP_ID/splits/$EXP_SPLIT_ID/mark-paid/ \
+            -b /tmp/exp_member.txt)
+          echo "$R" | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['status']=='paid'; print('✅ paid')"
+
+      - name: "Expenses E9 — mark-paid twice → 400"
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X PATCH http://localhost:8000/api/expenses/$EXP_ID/splits/$EXP_SPLIT_ID/mark-paid/ \
+            -b /tmp/exp_member.txt)
+          [ "$CODE" = "400" ] && echo "✅ 400 OK" || (echo "❌ Expected 400 got $CODE" && exit 1)
+
+      - name: "Expenses E10 — admin reverts to pending → 200"
+        run: |
+          R=$(curl -s -X PATCH \
+            http://localhost:8000/api/expenses/$EXP_ID/splits/$EXP_SPLIT_ID/mark-pending/ \
+            -b /tmp/exp_admin.txt)
+          echo "$R" | python3 -c "import sys,json; d=json.load(sys.stdin); assert d['status']=='pending'; print('✅ pending')"
+
+      - name: "Expenses E11 — member cannot mark-pending → 403"
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X PATCH http://localhost:8000/api/expenses/$EXP_ID/splits/$EXP_SPLIT_ID/mark-pending/ \
+            -b /tmp/exp_member.txt)
+          [ "$CODE" = "403" ] && echo "✅ 403 OK" || (echo "❌ Expected 403 got $CODE" && exit 1)
+
+      - name: "Expenses E12 — member cannot PATCH expense → 403"
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X PATCH http://localhost:8000/api/expenses/$EXP_ID/ \
+            -H "Content-Type: application/json" -b /tmp/exp_member.txt \
+            -d '{"title":"Hijacked"}')
+          [ "$CODE" = "403" ] && echo "✅ 403 OK" || (echo "❌ Expected 403 got $CODE" && exit 1)
+
+      - name: "Expenses E13 — admin can PATCH title and category → 200"
+        run: |
+          R=$(curl -s -X PATCH http://localhost:8000/api/expenses/$EXP_ID/ \
+            -H "Content-Type: application/json" -b /tmp/exp_admin.txt \
+            -d '{"title":"CI Dinner (edited)","category":"nightlife"}')
+          echo "$R" | python3 -c "
+          import sys,json; d=json.load(sys.stdin)
+          assert d['title']=='CI Dinner (edited)'; assert d['category']=='nightlife'
+          print('✅ PATCH OK')
+          "
+
+      - name: "Expenses E14 — GET summary → totals present"
+        run: |
+          R=$(curl -s http://localhost:8000/api/jams/$EXP_JAM_ID/expenses/summary/ \
+            -b /tmp/exp_admin.txt)
+          echo "Response: $R"
+          echo "$R" | python3 -c "
+          import sys,json; d=json.load(sys.stdin)
+          for k in ['total_expenses','total_paid','total_pending','balances','pending_splits']:
+              assert k in d, f'Missing {k}'
+          print('✅ Summary keys OK')
+          "
+
+      - name: "Expenses E15 — admin soft-deletes expense → 204, excluded from list"
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X DELETE http://localhost:8000/api/expenses/$EXP_ID/ -b /tmp/exp_admin.txt)
+          [ "$CODE" = "204" ] && echo "✅ 204 OK" || (echo "❌ Expected 204 got $CODE" && exit 1)
+          R=$(curl -s http://localhost:8000/api/jams/$EXP_JAM_ID/expenses/ -b /tmp/exp_admin.txt)
+          echo "$R" | python3 -c "
+          import sys,json,os; expenses=json.load(sys.stdin)
+          ids=[e['id'] for e in expenses]
+          exp_id=int(os.environ['EXP_ID'])
+          assert exp_id not in ids, f'Deleted expense still in list: {ids}'
+          print(f'✅ Excluded from list, remaining={len(expenses)}')
+          "
+
+      - name: "Expenses E16 — member cannot DELETE expense → 403"
+        run: |
+          R=$(curl -s -X POST http://localhost:8000/api/jams/$EXP_JAM_ID/expenses/ \
+            -H "Content-Type: application/json" -b /tmp/exp_admin.txt \
+            -d "{\"title\":\"Temp\",\"amount\":\"10.00\",\"split_type\":\"equal\",\"participant_ids\":[$EXP_MEMBER_PK]}")
+          TEMP_ID=$(echo "$R" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X DELETE http://localhost:8000/api/expenses/$TEMP_ID/ -b /tmp/exp_member.txt)
+          [ "$CODE" = "403" ] && echo "✅ 403 OK" || (echo "❌ Expected 403 got $CODE" && exit 1)
+
+      - name: "Expenses E17 — outsider cannot view expense → 403"
+        run: |
+          R=$(curl -s -X POST http://localhost:8000/api/jams/$EXP_JAM_ID/expenses/ \
+            -H "Content-Type: application/json" -b /tmp/exp_admin.txt \
+            -d "{\"title\":\"Secret\",\"amount\":\"50.00\",\"split_type\":\"equal\",\"participant_ids\":[$EXP_MEMBER_PK]}")
+          EXP2_ID=$(echo "$R" | python3 -c "import sys,json; print(json.load(sys.stdin)['id'])")
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            http://localhost:8000/api/expenses/$EXP2_ID/ -b /tmp/exp_outsider.txt)
+          [ "$CODE" = "403" ] && echo "✅ 403 OK" || (echo "❌ Expected 403 got $CODE" && exit 1)
+
+      - name: Show container logs on failure
+        if: failure()
+        run: docker compose logs backend
+
+      - name: Tear down containers
+        if: always()
+        run: docker compose down -v
