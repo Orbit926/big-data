@@ -874,31 +874,370 @@ jobs:
         run: docker compose down -v
 
   # ───────────────────────────────────────────────────────────────────────────
-  # JOB 5 — Gate: solo pasa si los cuatro jobs anteriores pasaron
+  # JOB 5 — JAMs integration tests (Docker Compose real + JWT cookies reales)
+  # Flujo completo: register → login → trip → JAM → miembros → permisos
+  # ───────────────────────────────────────────────────────────────────────────
+  jams-tests:
+    name: "🎵 JAMs Integration Tests (Docker)"
+    runs-on: ubuntu-latest
+    needs: [trips-tests]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Write backend .env
+        run: |
+          cat > backend/.env <<'EOF'
+          SECRET_KEY=ci-test-secret-key-not-for-production
+          DEBUG=True
+          ALLOWED_HOSTS=localhost,127.0.0.1
+          JWT_ACCESS_MINUTES=15
+          JWT_REFRESH_DAYS=7
+          JWT_ACCESS_COOKIE_NAME=move_access_token
+          JWT_REFRESH_COOKIE_NAME=move_refresh_token
+          JWT_COOKIE_SECURE=False
+          JWT_COOKIE_SAMESITE=Lax
+          CORS_ALLOWED_ORIGINS=http://localhost:5173,http://localhost:3000
+          CSRF_TRUSTED_ORIGINS=http://localhost:5173,http://localhost:3000,http://localhost
+          EOF
+
+      - name: Build and start backend container
+        run: docker compose up -d --build backend
+
+      - name: Wait for backend to be healthy
+        timeout-minutes: 3
+        run: |
+          for i in $(seq 1 30); do
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8000/api/health/ || echo "000")
+            echo "  Attempt $i — HTTP $STATUS"
+            if [ "$STATUS" = "200" ]; then echo "✅ Backend is up!"; break; fi
+            if [ "$i" = "30" ]; then echo "❌ Never healthy"; docker compose logs backend; exit 1; fi
+            sleep 5
+          done
+
+      # ── Crear usuarios de prueba ───────────────────────────────────────────
+      - name: "JAMs Setup — Create jam_admin and jam_member users"
+        run: |
+          docker compose exec -T backend python manage.py shell -c "
+          from apps.users.models import User
+          for uname, email in [('jam_admin', 'jam_admin@ci.test'), ('jam_member', 'jam_member@ci.test')]:
+              if not User.objects.filter(username=uname).exists():
+                  User.objects.create_user(username=uname, email=email, password='ci-password-123')
+                  print(f'✅ {uname} created')
+              else:
+                  print(f'ℹ️  {uname} already exists')
+          "
+
+      # ── JAMs J1: Login jam_admin → JWT cookie real ────────────────────────
+      - name: "JAMs J1 — Login jam_admin (JWT cookie real)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"jam_admin","password":"ci-password-123"}' \
+            -c /tmp/jam_admin_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['user']['username'] == 'jam_admin', f'Login failed: {d}'
+          print('✅ jam_admin login OK')
+          "
+          grep -q "move_access_token" /tmp/jam_admin_cookies.txt && echo "✅ Access cookie set"
+          grep -q "HttpOnly" /tmp/jam_admin_cookies.txt && echo "✅ Cookie is HttpOnly"
+
+      # ── JAMs J2: Login jam_member ─────────────────────────────────────────
+      - name: "JAMs J2 — Login jam_member (JWT cookie real)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/auth/login/ \
+            -H "Content-Type: application/json" \
+            -d '{"login":"jam_member","password":"ci-password-123"}' \
+            -c /tmp/jam_member_cookies.txt)
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['user']['username'] == 'jam_member', f'Login failed: {d}'
+          print('✅ jam_member login OK')
+          "
+
+      # ── Obtener PK del jam_member para usarlo más adelante ────────────────
+      - name: "JAMs Setup — Resolve jam_member PK"
+        run: |
+          JAM_MEMBER_PK=$(docker compose exec -T backend python manage.py shell -c "
+          from apps.users.models import User
+          print(User.objects.get(username='jam_member').pk)
+          ")
+          echo "JAM_MEMBER_PK=$JAM_MEMBER_PK" >> $GITHUB_ENV
+          echo "✅ jam_member PK = $JAM_MEMBER_PK"
+
+      # ── JAMs J3: Crear trip como jam_admin ────────────────────────────────
+      - name: "JAMs J3 — POST /api/trips/ (crear trip con jam_member como participante)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/trips/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/jam_admin_cookies.txt \
+            -d "{\"name\":\"JAM CI Trip\",\"description\":\"Trip for JAM CI test\",\"participant_ids\":[$JAM_MEMBER_PK]}")
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['organizer'] == 'jam_admin', f'Wrong organizer: {d}'
+          assert 'jam_member' in d['participants'], f'Member missing: {d}'
+          print(f\"✅ Trip created — id={d['id']}\")
+          with open('/tmp/jam_trip_id.txt', 'w') as f: f.write(str(d['id']))
+          "
+
+      - name: "JAMs Setup — Store trip ID in env"
+        run: |
+          JAM_TRIP_ID=$(cat /tmp/jam_trip_id.txt)
+          echo "JAM_TRIP_ID=$JAM_TRIP_ID" >> $GITHUB_ENV
+          echo "✅ JAM_TRIP_ID=$JAM_TRIP_ID"
+
+      # ── JAMs J4: Crear JAM usando JWT cookie real ─────────────────────────
+      - name: "JAMs J4 — POST /api/trips/{id}/jam/ (crear JAM con cookie real)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/trips/$JAM_TRIP_ID/jam/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/jam_admin_cookies.txt \
+            -d '{"name":"CI JAM","description":"Integration test JAM"}')
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert 'id'         in d, f'Missing id: {d}'
+          assert 'name'       in d, f'Missing name: {d}'
+          assert d['name']    == 'CI JAM', f'Wrong name: {d}'
+          assert 'created_by' in d, f'Missing created_by: {d}'
+          assert d['created_by']['username'] == 'jam_admin', f'created_by should be jam_admin: {d}'
+          print(f\"✅ JAM created — id={d['id']}, created_by={d['created_by']['username']}\")
+          with open('/tmp/jam_id.txt', 'w') as f: f.write(str(d['id']))
+          "
+
+      - name: "JAMs Setup — Store JAM ID in env"
+        run: |
+          JAM_ID=$(cat /tmp/jam_id.txt)
+          echo "JAM_ID=$JAM_ID" >> $GITHUB_ENV
+          echo "✅ JAM_ID=$JAM_ID"
+
+      # ── JAMs J5: Verificar que jam_admin es admin activo automáticamente ──
+      - name: "JAMs J5 — GET /api/jams/{id}/members/ (admin auto-asignado)"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/jams/$JAM_ID/members/ \
+            -b /tmp/jam_admin_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          members = json.load(sys.stdin)
+          assert len(members) == 1, f'Expected 1 member (creator), got {len(members)}: {members}'
+          m = members[0]
+          assert m['user']['username'] == 'jam_admin', f'Wrong member: {m}'
+          assert m['role']   == 'admin',  f'Creator should be admin, got: {m[\"role\"]}'
+          assert m['status'] == 'active', f'Creator should be active, got: {m[\"status\"]}'
+          print('✅ Creator auto-assigned as active admin')
+          "
+
+      # ── JAMs J6: Duplicar JAM → 400 ───────────────────────────────────────
+      - name: "JAMs J6 — POST /api/trips/{id}/jam/ segunda vez → 400"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/trips/$JAM_TRIP_ID/jam/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/jam_admin_cookies.txt \
+            -d '{"name":"Duplicate JAM"}')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "400" ] && echo "✅ Duplicate JAM correctly rejected (400)" || \
+            (echo "❌ Expected 400, got $HTTP_CODE" && exit 1)
+
+      # ── JAMs J7: Sin cookie → 401 ─────────────────────────────────────────
+      - name: "JAMs J7 — GET /api/jams/{id}/ sin cookie → 401"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            http://localhost:8000/api/jams/$JAM_ID/)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "401" ] && echo "✅ Unauthenticated correctly rejected (401)" || \
+            (echo "❌ Expected 401, got $HTTP_CODE" && exit 1)
+
+      # ── JAMs J8: jam_member fuera de JAM → 403 ───────────────────────────
+      - name: "JAMs J8 — GET /api/jams/{id}/ como jam_member (fuera de JAM) → 403"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            http://localhost:8000/api/jams/$JAM_ID/ \
+            -b /tmp/jam_member_cookies.txt)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "403" ] && echo "✅ Non-member correctly rejected (403)" || \
+            (echo "❌ Expected 403, got $HTTP_CODE" && exit 1)
+
+      # ── JAMs J9: admin agrega member ──────────────────────────────────────
+      - name: "JAMs J9 — POST /api/jams/{id}/members/ (admin agrega jam_member)"
+        run: |
+          RESPONSE=$(curl -s -X POST http://localhost:8000/api/jams/$JAM_ID/members/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/jam_admin_cookies.txt \
+            -d "{\"user_id\":$JAM_MEMBER_PK,\"role\":\"member\"}")
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['user']['username'] == 'jam_member', f'Wrong user: {d}'
+          assert d['role']   == 'member', f'Wrong role: {d}'
+          assert d['status'] == 'active', f'Wrong status: {d}'
+          print(f\"✅ jam_member added — membership id={d['id']}\")
+          with open('/tmp/jam_membership_id.txt', 'w') as f: f.write(str(d['id']))
+          "
+
+      - name: "JAMs Setup — Store membership ID in env"
+        run: |
+          JAM_MEMBERSHIP_ID=$(cat /tmp/jam_membership_id.txt)
+          echo "JAM_MEMBERSHIP_ID=$JAM_MEMBERSHIP_ID" >> $GITHUB_ENV
+          echo "✅ JAM_MEMBERSHIP_ID=$JAM_MEMBERSHIP_ID"
+
+      # ── JAMs J10: jam_member puede ver JAM ───────────────────────────────
+      - name: "JAMs J10 — GET /api/jams/{id}/ como jam_member (ahora en JAM) → 200"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/jams/$JAM_ID/ \
+            -b /tmp/jam_member_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['name'] == 'CI JAM', f'Wrong JAM: {d}'
+          print('✅ jam_member can view JAM after being added')
+          "
+
+      # ── JAMs J11: jam_member puede listar miembros ────────────────────────
+      - name: "JAMs J11 — GET /api/jams/{id}/members/ como jam_member → 200"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/jams/$JAM_ID/members/ \
+            -b /tmp/jam_member_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          members = json.load(sys.stdin)
+          assert len(members) == 2, f'Expected 2 members, got {len(members)}'
+          usernames = [m['user']['username'] for m in members]
+          assert 'jam_admin'  in usernames, f'Admin missing: {usernames}'
+          assert 'jam_member' in usernames, f'Member missing: {usernames}'
+          print('✅ jam_member can list members (2 total)')
+          "
+
+      # ── JAMs J12: jam_member NO puede editar JAM → 403 ───────────────────
+      - name: "JAMs J12 — PATCH /api/jams/{id}/ como jam_member → 403"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X PATCH http://localhost:8000/api/jams/$JAM_ID/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/jam_member_cookies.txt \
+            -d '{"name":"Hijacked"}')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "403" ] && echo "✅ Member correctly blocked from PATCH (403)" || \
+            (echo "❌ Expected 403, got $HTTP_CODE" && exit 1)
+
+      # ── JAMs J13: jam_member NO puede agregar miembros → 403 ─────────────
+      - name: "JAMs J13 — POST /api/jams/{id}/members/ como jam_member → 403"
+        run: |
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X POST http://localhost:8000/api/jams/$JAM_ID/members/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/jam_member_cookies.txt \
+            -d '{"user_id":999}')
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "403" ] && echo "✅ Member correctly blocked from adding members (403)" || \
+            (echo "❌ Expected 403, got $HTTP_CODE" && exit 1)
+
+      # ── JAMs J14: admin puede editar JAM ─────────────────────────────────
+      - name: "JAMs J14 — PATCH /api/jams/{id}/ como jam_admin → 200"
+        run: |
+          RESPONSE=$(curl -s -X PATCH http://localhost:8000/api/jams/$JAM_ID/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/jam_admin_cookies.txt \
+            -d '{"name":"CI JAM (edited)","description":"Updated by admin"}')
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['name'] == 'CI JAM (edited)', f'Name not updated: {d}'
+          print('✅ Admin PATCH OK — JAM name updated')
+          "
+
+      # ── JAMs J15: no se puede remover al último admin → 400 ───────────────
+      - name: "JAMs J15 — DELETE último admin → 400 (guard_last_admin_or_raise)"
+        run: |
+          ADMIN_MEMBERSHIP_ID=$(docker compose exec -T backend python manage.py shell -c "
+          from apps.jams.models import JamMember
+          import os
+          m = JamMember.objects.get(jam_id=$JAM_ID, user__username='jam_admin')
+          print(m.pk)
+          ")
+          echo "Admin membership PK: $ADMIN_MEMBERSHIP_ID"
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            -X DELETE http://localhost:8000/api/jams/$JAM_ID/members/$ADMIN_MEMBERSHIP_ID/ \
+            -b /tmp/jam_admin_cookies.txt)
+          echo "HTTP status: $HTTP_CODE"
+          [ "$HTTP_CODE" = "400" ] && echo "✅ Last admin removal correctly blocked (400)" || \
+            (echo "❌ Expected 400, got $HTTP_CODE" && exit 1)
+
+      # ── JAMs J16: admin puede promover member a admin ─────────────────────
+      - name: "JAMs J16 — PATCH member a admin → 200"
+        run: |
+          RESPONSE=$(curl -s -X PATCH \
+            http://localhost:8000/api/jams/$JAM_ID/members/$JAM_MEMBERSHIP_ID/ \
+            -H "Content-Type: application/json" \
+            -b /tmp/jam_admin_cookies.txt \
+            -d '{"role":"admin"}')
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['role'] == 'admin', f'Role not updated: {d}'
+          print('✅ Member promoted to admin')
+          "
+
+      # ── JAMs J17: GET /api/trips/{id}/jam/ con cookie real ────────────────
+      - name: "JAMs J17 — GET /api/trips/{id}/jam/ con JWT cookie real → 200"
+        run: |
+          RESPONSE=$(curl -s http://localhost:8000/api/trips/$JAM_TRIP_ID/jam/ \
+            -b /tmp/jam_admin_cookies.txt)
+          echo "Response: $RESPONSE"
+          echo "$RESPONSE" | python3 -c "
+          import sys, json
+          d = json.load(sys.stdin)
+          assert d['name'] == 'CI JAM (edited)', f'Wrong JAM: {d}'
+          print('✅ JAM retrievable via trip endpoint with real JWT cookie')
+          "
+
+      - name: Show container logs on failure
+        if: failure()
+        run: docker compose logs backend
+
+      - name: Tear down containers
+        if: always()
+        run: docker compose down -v
+
+  # ───────────────────────────────────────────────────────────────────────────
+  # JOB 6 — Gate: solo pasa si los cinco jobs anteriores pasaron
   # ───────────────────────────────────────────────────────────────────────────
   ci-passed:
     name: "✅ CI Passed"
     runs-on: ubuntu-latest
-    needs: [unit-tests, integration-tests, trips-tests, register-tests]
+    needs: [unit-tests, integration-tests, trips-tests, register-tests, jams-tests]
     if: always()
 
     steps:
       - name: Check all jobs passed
         run: |
           if [ "${{ needs.unit-tests.result }}" != "success" ]; then
-            echo "❌ Unit tests failed"
-            exit 1
+            echo "❌ Unit tests failed"; exit 1
           fi
           if [ "${{ needs.integration-tests.result }}" != "success" ]; then
-            echo "❌ Integration tests failed"
-            exit 1
+            echo "❌ Integration tests failed"; exit 1
           fi
           if [ "${{ needs.trips-tests.result }}" != "success" ]; then
-            echo "❌ Trips integration tests failed"
-            exit 1
+            echo "❌ Trips integration tests failed"; exit 1
           fi
           if [ "${{ needs.register-tests.result }}" != "success" ]; then
-            echo "❌ Register integration tests failed"
-            exit 1
+            echo "❌ Register integration tests failed"; exit 1
+          fi
+          if [ "${{ needs.jams-tests.result }}" != "success" ]; then
+            echo "❌ JAMs integration tests failed"; exit 1
           fi
           echo "✅ All CI jobs passed — ready to merge!"
