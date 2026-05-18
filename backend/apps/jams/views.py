@@ -46,6 +46,7 @@ from .services import (
     can_manage_jam,
     can_manage_jam_members,
     can_view_jam,
+    guard_last_admin_or_raise,
     user_has_trip_access,
 )
 
@@ -231,37 +232,6 @@ class JamMemberDetailView(APIView):
         membership = get_object_or_404(JamMember, pk=member_id, jam=jam)
         return jam, membership
 
-    def _guard_last_admin(self, jam, membership, new_role=None, removing=False):
-        """
-        Raise 400 if the action would leave the JAM with no active admin.
-        Covers:
-          - Removing the last active admin.
-          - Downgrading the last active admin to member.
-        """
-        is_admin = membership.role == JamMember.Role.ADMIN
-        is_active = membership.status == JamMember.Status.ACTIVE
-
-        if not (is_admin and is_active):
-            return  # not an active admin, no risk
-
-        active_admin_count = JamMember.objects.filter(
-            jam=jam,
-            role=JamMember.Role.ADMIN,
-            status=JamMember.Status.ACTIVE,
-        ).count()
-
-        if active_admin_count <= 1:
-            if removing:
-                from rest_framework.exceptions import ValidationError
-                raise ValidationError(
-                    "Cannot remove the last active admin. Assign another admin first."
-                )
-            if new_role and new_role != JamMember.Role.ADMIN:
-                from rest_framework.exceptions import ValidationError
-                raise ValidationError(
-                    "Cannot demote the last active admin. Assign another admin first."
-                )
-
     def patch(self, request, jam_id, member_id):
         jam, membership = self._get_membership(jam_id, member_id, request.user)
 
@@ -273,8 +243,8 @@ class JamMemberDetailView(APIView):
         new_role = serializer.validated_data.get("role")
         new_status = serializer.validated_data.get("status")
 
-        # Guard last-admin constraint.
-        self._guard_last_admin(
+        # Guard last-admin constraint — delegated to services.py.
+        guard_last_admin_or_raise(
             jam,
             membership,
             new_role=new_role,
@@ -287,6 +257,6 @@ class JamMemberDetailView(APIView):
 
     def delete(self, request, jam_id, member_id):
         jam, membership = self._get_membership(jam_id, member_id, request.user)
-        self._guard_last_admin(jam, membership, removing=True)
+        guard_last_admin_or_raise(jam, membership, removing=True)
         membership.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)

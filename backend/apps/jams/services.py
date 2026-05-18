@@ -99,3 +99,51 @@ def user_has_trip_access(user, trip) -> bool:
         trip.organizer == user
         or trip.participants.filter(pk=user.pk).exists()
     )
+
+
+# ── Last-admin guard (business rule) ──────────────────────────────────────────
+
+
+def guard_last_admin_or_raise(jam, membership, *, new_role=None, removing=False):
+    """
+    Enforce the invariant: a JAM must always have at least one active admin.
+
+    Raises ``rest_framework.exceptions.ValidationError`` (→ HTTP 400) when
+    the requested operation would leave the JAM without any active admin.
+
+    Parameters
+    ----------
+    jam        : Jam instance — the JAM being mutated.
+    membership : JamMember instance — the member being changed/removed.
+    new_role   : str | None — the role value being set (PATCH role field).
+    removing   : bool — True when the member is being deleted or set to REMOVED.
+
+    This function is intentionally decoupled from views so that future modules
+    (e.g. a bulk-remove endpoint in expenses or an admin transfer flow) can
+    reuse the same hard business rule without duplicating it.
+    """
+    from rest_framework.exceptions import ValidationError
+    from .models import JamMember  # local import avoids circular deps at module level
+
+    is_admin = membership.role == JamMember.Role.ADMIN
+    is_active = membership.status == JamMember.Status.ACTIVE
+
+    if not (is_admin and is_active):
+        # Membership being changed is not a current active admin — no risk.
+        return
+
+    active_admin_count = JamMember.objects.filter(
+        jam=jam,
+        role=JamMember.Role.ADMIN,
+        status=JamMember.Status.ACTIVE,
+    ).count()
+
+    if active_admin_count <= 1:
+        if removing:
+            raise ValidationError(
+                "Cannot remove the last active admin. Assign another admin first."
+            )
+        if new_role and new_role != JamMember.Role.ADMIN:
+            raise ValidationError(
+                "Cannot demote the last active admin. Assign another admin first."
+            )
