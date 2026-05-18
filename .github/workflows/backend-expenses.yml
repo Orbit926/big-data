@@ -1,0 +1,51 @@
+name: Backend Expenses Tests
+
+on:
+  push:
+    paths:
+      - "backend/apps/expenses/**"
+      - "backend/apps/jams/**"
+      - "backend/apps/trips/**"
+      - "backend/apps/users/**"
+      - "backend/config/**"
+      - ".github/workflows/backend-expenses.yml"
+  pull_request:
+    paths:
+      - "backend/apps/expenses/**"
+      - "backend/apps/jams/**"
+      - "backend/apps/trips/**"
+      - "backend/apps/users/**"
+      - "backend/config/**"
+      - ".github/workflows/backend-expenses.yml"
+
+jobs:
+  expenses-tests:
+    name: Expenses tests
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: backend
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Apply migrations
+        run: python manage.py migrate --no-input
+
+      - name: Run expenses tests
+        run: python manage.py test apps.expenses --verbosity=2 --failfast
+
+      - name: Django system check
+        run: python manage.py check
