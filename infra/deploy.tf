@@ -18,8 +18,8 @@ resource "null_resource" "build_and_push_backend" {
       echo "🔑 Iniciando sesión en AWS ECR..."
       aws ecr get-login-password --region ${var.aws_region} --profile ${var.aws_profile} | docker login --username AWS --password-stdin ${module.backend.ecr_repository_url}
       
-      echo "🐳 Construyendo la imagen Docker del backend..."
-      docker build -t ${module.backend.ecr_repository_url}:latest ../backend
+      echo "🐳 Construyendo la imagen Docker del backend para la plataforma linux/amd64..."
+      docker build --platform linux/amd64 -t ${module.backend.ecr_repository_url}:latest ../backend
       
       echo "📤 Subiendo la imagen Docker a AWS ECR..."
       docker push ${module.backend.ecr_repository_url}:latest
@@ -57,8 +57,8 @@ resource "null_resource" "build_and_push_frontend" {
       echo "📂 Entrando al directorio del frontend..."
       cd ../frontend
       
-      echo "📝 Configurando IP del backend en .env.production (VITE_API_URL = http://${module.backend.backend_public_ip}:8000)..."
-      echo "VITE_API_URL=http://${module.backend.backend_public_ip}:8000" > .env.production
+      echo "📝 Configurando API URL en .env.production (VITE_API_URL = vacío para rutas relativas)..."
+      echo "VITE_API_URL=" > .env.production
       
       echo "📦 Instalando dependencias del frontend..."
       npm install

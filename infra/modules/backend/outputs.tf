@@ -18,3 +18,8 @@ output "ecs_service_name" {
   value       = aws_ecs_service.backend.name
 }
 
+output "backend_public_dns" {
+  description = "El DNS público del host EC2 del backend"
+  value       = aws_instance.ecs_host.public_dns
+}
+

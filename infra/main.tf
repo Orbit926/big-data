@@ -11,9 +11,10 @@ module "network" {
 # 2. Módulo de Frontend (S3 Bucket, CloudFront Distribution y OAC)
 # ─────────────────────────────────────────────────────────────────────────────
 module "frontend" {
-  source       = "./modules/frontend"
-  project_name = var.project_name
-  environment  = var.environment
+  source             = "./modules/frontend"
+  project_name       = var.project_name
+  environment        = var.environment
+  backend_public_dns = module.backend.backend_public_dns
 }
 
 # ─────────────────────────────────────────────────────────────────────────────

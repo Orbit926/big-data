@@ -44,6 +44,41 @@ resource "aws_cloudfront_distribution" "frontend" {
     origin_access_control_id = aws_cloudfront_origin_access_control.oac.id
   }
 
+  origin {
+    domain_name = var.backend_public_dns
+    origin_id   = "ECS-Backend"
+
+    custom_origin_config {
+      http_port                = 8000
+      https_port               = 443
+      origin_protocol_policy   = "http-only"
+      origin_ssl_protocols     = ["TLSv1.2"]
+      origin_read_timeout      = 30
+      origin_keepalive_timeout = 5
+    }
+  }
+
+  ordered_cache_behavior {
+    path_pattern     = "/api/*"
+    allowed_methods  = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods   = ["GET", "HEAD"]
+    target_origin_id = "ECS-Backend"
+
+    forwarded_values {
+      query_string = true
+      headers      = ["Host", "Accept", "Accept-Language", "Authorization", "Content-Type", "Origin", "Referer"]
+
+      cookies {
+        forward = "all"
+      }
+    }
+
+    viewer_protocol_policy = "redirect-to-https"
+    min_ttl                = 0
+    default_ttl            = 0
+    max_ttl                = 0
+  }
+
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]

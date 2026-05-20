@@ -137,8 +137,8 @@ resource "aws_instance" "ecs_host" {
   ami                  = data.aws_ssm_parameter.ecs_optimized_ami.value
   instance_type        = var.instance_type
   subnet_id            = var.public_subnet_ids[0] # Levantar en la primera subnet pública
-  iam_instance_profile = aws_iam_instance_profile.ecs_instance_profile.name
-  security_groups      = [aws_security_group.ecs_host.id]
+  iam_instance_profile   = aws_iam_instance_profile.ecs_instance_profile.name
+  vpc_security_group_ids = [aws_security_group.ecs_host.id]
 
   # Registrar la máquina en el Clúster de ECS y pre-crear el archivo SQLite vacío
   # para que Docker lo monte como archivo en lugar de directorio.
