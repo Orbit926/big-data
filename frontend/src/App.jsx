@@ -9,8 +9,8 @@ const fallbackDestinationsInfo = [
     reviews: '2.4k',
     price: 'Desde $3,899 MXN',
     description: 'Disfruta calles historicas, cafes encantadores, museos y planes perfectos para viajar con amigos o en grupo.',
-    image: '',
-    gallery: ['', '', '', '', ''],
+    image: '/img/Fox_Paris.png',
+    gallery: ['/img/Paris1.png', '/img/Paris1.png', '/img/Paris1.png', '/img/Paris1.png', '/img/Paris1.png'],
     accent: 'from-[#193457] via-[#44a8d4] to-[#f7c66a]',
     emoji: 'PAR',
   },
@@ -22,8 +22,8 @@ const fallbackDestinationsInfo = [
     reviews: '4.1k',
     price: 'Desde $5,299 MXN',
     description: 'Explora rascacielos, parques, miradores, compras y noches llenas de energia para compartir con tus amigos.',
-    image: '',
-    gallery: ['', '', '', '', ''],
+    image: '/img/Fox_Japan.png',
+    gallery: ['/img/Newyork1.png', '/img/Newyork1.png', '/img/Newyork1.png', '/img/Newyork1.png', '/img/Newyork1.png'],
     accent: 'from-[#202634] via-[#5f8fd9] to-[#f2d27a]',
     emoji: 'NYC',
   },
@@ -35,7 +35,7 @@ const fallbackDestinationsInfo = [
     reviews: '3.1k',
     price: 'Desde $2,499 MXN',
     description: 'Disfruta playas increibles, comida, cultura, experiencias acuaticas y planes perfectos para viajar con amigos o en grupo.',
-    image: '',
+    image: '/img/Mexico.webp',
     gallery: ['', '', '', '', ''],
     accent: 'from-[#167c5b] via-[#f0b64f] to-[#de5f45]',
     emoji: 'MEX',
@@ -272,7 +272,7 @@ function App() {
               <header className="flex items-center justify-between px-6 pt-5">
                 <button className="flex items-center gap-3 rounded-full bg-[#f6f6f8] py-2 pl-2 pr-6">
                   <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-full bg-[#e8eefc]">
-                    <span className="text-sm font-bold text-[#ef4b49]">IMG</span>
+                    <img src="/img/foto%20perfil.png" alt="Foto de perfil" className="h-full w-full object-cover" />
                   </span>
                   <span className="text-lg font-semibold">{currentUser || 'Leonardo'}</span>
                 </button>
@@ -648,8 +648,8 @@ function DestinationDetails({ destination, onBack, onStartTrip }) {
             <h2 className="text-4xl font-semibold leading-tight text-[#20222f]">{destination.name}</h2>
             <p className="mt-3 text-2xl text-gray-500">{destination.country}</p>
           </div>
-          <div className="grid h-16 w-16 shrink-0 place-items-center overflow-hidden rounded-full bg-[#c9f2cd] text-sm font-bold text-[#ef4b49]">
-            IMG
+          <div className="h-16 w-16 shrink-0 overflow-hidden rounded-full bg-[#c9f2cd]">
+            <img src={destination.gallery[0] || destination.image} alt={destination.name} className="h-full w-full object-cover" />
           </div>
         </div>
 
@@ -766,12 +766,7 @@ function DateSelection({
   return (
     <div className="min-h-screen bg-white text-[#303244]">
       <section className="relative h-56 overflow-hidden bg-gradient-to-r from-[#6d7087] via-[#cbdde4] to-[#8a90a6]">
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-          <span className="text-5xl font-black tracking-[0.25em]">IMG</span>
-          <span className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] opacity-85">
-            Espacio para imagen superior
-          </span>
-        </div>
+        <img src="/img/Fox_chooseDate.png" alt="Elige tu fecha" className="absolute inset-0 h-full w-full object-cover" />
         <button
           className="absolute left-8 top-10 grid h-16 w-16 place-items-center rounded-full bg-white text-[#20222f] shadow-lg"
           aria-label="Volver"
@@ -862,12 +857,7 @@ function TripPreferences({ preferences, setPreferences, onBack, onNext }) {
   return (
     <div className="min-h-screen bg-white text-[#303244]">
       <section className="relative h-56 overflow-hidden bg-gradient-to-r from-[#6d7087] via-[#cbdde4] to-[#8a90a6]">
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-          <span className="text-5xl font-black tracking-[0.25em]">IMG</span>
-          <span className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] opacity-85">
-            Espacio para imagen superior
-          </span>
-        </div>
+        <img src="/img/Fox_chooseDate.png" alt="Cuentanos mas" className="absolute inset-0 h-full w-full object-cover" />
         <button
           className="absolute left-8 top-10 grid h-16 w-16 place-items-center rounded-full bg-white text-[#20222f] shadow-lg"
           aria-label="Volver"
@@ -967,12 +957,7 @@ function JamGroup({ destination, selectedRange, travelers, onBack, onOpenExpense
   return (
     <div className="min-h-screen bg-white text-[#24304a]">
       <section className={`relative h-52 overflow-hidden bg-gradient-to-r ${destination.accent}`}>
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-          <span className="text-5xl font-black tracking-[0.25em]">IMG</span>
-          <span className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] opacity-85">
-            Espacio para imagen grupal
-          </span>
-        </div>
+        <img src="/img/JAMSFOTO.png" alt="JAM grupal" className="absolute inset-0 h-full w-full object-cover" />
         <button
           className="absolute left-8 top-8 grid h-16 w-16 place-items-center rounded-full bg-white text-[#20222f] shadow-lg"
           aria-label="Volver"
@@ -988,7 +973,11 @@ function JamGroup({ destination, selectedRange, travelers, onBack, onOpenExpense
         <section className="mt-14 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
           <div className="flex items-center gap-5">
             <div className={`grid h-20 w-28 shrink-0 place-items-center overflow-hidden rounded-2xl bg-gradient-to-br ${destination.accent}`}>
-              <span className="text-sm font-black tracking-[0.18em] text-white">{destination.emoji}</span>
+              {destination.gallery[0] ? (
+                <img src={destination.gallery[0]} alt={destination.name} className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-sm font-black tracking-[0.18em] text-white">{destination.emoji}</span>
+              )}
             </div>
             <div className="min-w-0 flex-1 text-left">
               <h2 className="text-2xl font-bold text-[#24304a]">{destination.name}</h2>
@@ -1008,9 +997,9 @@ function JamGroup({ destination, selectedRange, travelers, onBack, onOpenExpense
             {Array.from({ length: Math.min(travelers, 4) }, (_, index) => (
               <div
                 key={`member-${index}`}
-                className="grid h-14 w-14 place-items-center rounded-full bg-[#e9eef7] text-sm font-bold text-rojo-principal"
+                className="h-14 w-14 overflow-hidden rounded-full bg-[#e9eef7]"
               >
-                IMG
+                <img src={`/img/Avatar${index + 1}.webp`} alt={`Miembro ${index + 1}`} className="h-full w-full object-cover" />
               </div>
             ))}
             <button className="ml-auto flex h-14 items-center gap-2 rounded-2xl border border-gray-200 px-6 text-base font-medium text-[#24304a] shadow-sm">
@@ -1034,8 +1023,8 @@ function JamGroup({ destination, selectedRange, travelers, onBack, onOpenExpense
                 </div>
               </div>
               <div className="mt-4 grid grid-cols-2 gap-3">
-                <MiniOption label="Catamaran" />
-                <MiniOption label="Xcaret" />
+                <MiniOption label="Catamaran" image="/img/Viajes1.webp" />
+                <MiniOption label="Xcaret" image="/img/Viajes2.webp" />
               </div>
               <button className="mt-4 w-full rounded-xl bg-rojo-principal py-3 font-bold text-white hover-rojo">
                 Votar
@@ -1116,12 +1105,7 @@ function GroupExpenses({ destination, selectedRange, travelers, onBack }) {
   return (
     <div className="min-h-screen bg-white text-[#24304a]">
       <section className={`relative h-52 overflow-hidden bg-gradient-to-r ${destination.accent}`}>
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-          <span className="text-5xl font-black tracking-[0.25em]">IMG</span>
-          <span className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] opacity-85">
-            Espacio para imagen de gastos
-          </span>
-        </div>
+        <img src="/img/GASTOS-GRUPALES-FOTO.png" alt="Gastos grupales" className="absolute inset-0 h-full w-full object-cover" />
         <button
           className="absolute left-8 top-8 grid h-16 w-16 place-items-center rounded-full bg-white text-[#20222f] shadow-lg"
           aria-label="Volver"
@@ -1137,7 +1121,11 @@ function GroupExpenses({ destination, selectedRange, travelers, onBack }) {
         <section className="mt-8 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
           <div className="flex items-center gap-4">
             <div className={`grid h-16 w-24 shrink-0 place-items-center overflow-hidden rounded-xl bg-gradient-to-br ${destination.accent}`}>
-              <span className="text-xs font-black tracking-[0.16em] text-white">{destination.emoji}</span>
+              {destination.gallery[0] ? (
+                <img src={destination.gallery[0]} alt={destination.name} className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-xs font-black tracking-[0.16em] text-white">{destination.emoji}</span>
+              )}
             </div>
             <div className="min-w-0 flex-1 text-left">
               <h2 className="text-2xl font-bold text-[#24304a]">{destination.name}</h2>
@@ -1235,8 +1223,8 @@ function ExpenseMetric({ title, amount, color, icon: Icon }) {
 function BalanceRow({ person, index }) {
   return (
     <div className="flex items-center gap-3 border-b border-gray-100 px-3 py-2 last:border-b-0">
-      <div className="grid h-12 w-12 shrink-0 place-items-center rounded-full bg-[#e9eef7] text-xs font-bold text-rojo-principal">
-        IMG
+      <div className="h-12 w-12 shrink-0 overflow-hidden rounded-full bg-[#e9eef7]">
+        <img src={`/img/Avatar${index + 1}.webp`} alt={person.name} className="h-full w-full object-cover" />
       </div>
       <div className="min-w-0 flex-1">
         <h3 className="font-bold">{person.name}</h3>
@@ -1315,6 +1303,7 @@ function TripItinerary({ destination, selectedRange, travelers, onBack }) {
       duration: '1 h',
       people: '4 van',
       status: 'Listo',
+      image: '/img/Actividad1.webp',
     },
     {
       time: '11:30',
@@ -1324,6 +1313,7 @@ function TripItinerary({ destination, selectedRange, travelers, onBack }) {
       duration: '2 h',
       people: '3 van',
       status: 'Planeado',
+      image: '/img/Actividad2.webp',
     },
     {
       time: '15:00',
@@ -1334,6 +1324,7 @@ function TripItinerary({ destination, selectedRange, travelers, onBack }) {
       people: '4 van',
       status: 'Reservado',
       featured: true,
+      image: '/img/Viajes1.webp',
     },
     {
       time: '20:00',
@@ -1343,18 +1334,14 @@ function TripItinerary({ destination, selectedRange, travelers, onBack }) {
       duration: '2 h',
       people: '4 van',
       status: 'Planeado',
+      image: '/img/Actividad3.webp',
     },
   ]
 
   return (
     <div className="min-h-screen bg-white text-[#24304a]">
       <section className={`relative h-52 overflow-hidden bg-gradient-to-r ${destination.accent}`}>
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white">
-          <span className="text-5xl font-black tracking-[0.25em]">IMG</span>
-          <span className="mt-3 text-sm font-semibold uppercase tracking-[0.2em] opacity-85">
-            Espacio para imagen de itinerario
-          </span>
-        </div>
+        <img src="/img/ITINERARIO-FOTO.png" alt="Itinerario" className="absolute inset-0 h-full w-full object-cover" />
         <button
           className="absolute left-8 top-8 grid h-16 w-16 place-items-center rounded-full bg-white text-[#20222f] shadow-lg"
           aria-label="Volver"
@@ -1370,7 +1357,11 @@ function TripItinerary({ destination, selectedRange, travelers, onBack }) {
         <section className="mt-8 rounded-2xl border border-gray-200 bg-white p-3 shadow-sm">
           <div className="flex items-center gap-4">
             <div className={`grid h-16 w-24 shrink-0 place-items-center overflow-hidden rounded-xl bg-gradient-to-br ${destination.accent}`}>
-              <span className="text-xs font-black tracking-[0.16em] text-white">{destination.emoji}</span>
+              {destination.gallery[0] ? (
+                <img src={destination.gallery[0]} alt={destination.name} className="h-full w-full object-cover" />
+              ) : (
+                <span className="text-xs font-black tracking-[0.16em] text-white">{destination.emoji}</span>
+              )}
             </div>
             <div className="min-w-0 flex-1 text-left">
               <h2 className="text-2xl font-bold text-[#24304a]">{destination.name}</h2>
@@ -1484,8 +1475,12 @@ function PlanRow({ plan }) {
       <time className="pt-3 font-bold text-rojo-principal">{plan.time}</time>
       <div className="rounded-2xl border border-gray-100 bg-white p-3 shadow-sm">
         <div className="flex gap-4">
-          <div className={`grid h-16 w-20 shrink-0 place-items-center rounded-xl bg-gradient-to-br ${plan.featured ? 'from-[#6abbe7] to-[#dcefff]' : 'from-[#92d0e3] to-[#f4c88b]'}`}>
-            <span className="text-xs font-bold text-white">IMG</span>
+          <div className={`h-16 w-20 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br ${plan.featured ? 'from-[#6abbe7] to-[#dcefff]' : 'from-[#92d0e3] to-[#f4c88b]'}`}>
+            {plan.image ? (
+              <img src={plan.image} alt={plan.title} className="h-full w-full object-cover" />
+            ) : (
+              <span className="grid h-full w-full place-items-center text-xs font-bold text-white">IMG</span>
+            )}
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-start justify-between gap-2">
@@ -1537,11 +1532,15 @@ function formatSelectedRange(selectedRange) {
   return `${selectedRange.start} - ${selectedRange.end} Feb 2027`
 }
 
-function MiniOption({ label }) {
+function MiniOption({ label, image }) {
   return (
     <button className="flex items-center gap-2 rounded-xl border border-gray-200 bg-white p-2 text-xs shadow-sm">
-      <span className="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-[#55b8cf] to-[#f4d29b] text-[10px] font-bold text-white">
-        IMG
+      <span className="grid h-8 w-8 overflow-hidden rounded-lg bg-gradient-to-br from-[#55b8cf] to-[#f4d29b]">
+        {image ? (
+          <img src={image} alt={label} className="h-full w-full object-cover" />
+        ) : (
+          <span className="grid h-full w-full place-items-center text-[10px] font-bold text-white">IMG</span>
+        )}
       </span>
       {label}
     </button>
