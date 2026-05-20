@@ -86,7 +86,8 @@ function App() {
   const [calendarDate, setCalendarDate] = useState(new Date(2027, 1, 1))
 
   useEffect(() => {
-    fetch('/api/search/destinations/')
+    const baseUrl = import.meta.env.VITE_API_URL || '';
+    fetch(`${baseUrl}/api/search/destinations/`)
       .then(res => res.json())
       .then(data => {
         if (!Array.isArray(data)) return
@@ -400,7 +401,21 @@ function HotelSearch() {
 
   const fetchHotels = (url) => {
     setLoading(true)
-    fetch(url)
+    const baseUrl = import.meta.env.VITE_API_URL || '';
+    
+    // Si la URL devuelta por Django es absoluta (ej. paginación), extraemos solo la ruta relativa
+    let relativeUrl = url;
+    try {
+      if (url && (url.startsWith('http://') || url.startsWith('https://'))) {
+        const parsed = new URL(url);
+        relativeUrl = parsed.pathname + parsed.search;
+      }
+    } catch (e) {
+      console.error("Error al parsear la URL de paginación:", e);
+    }
+
+    const targetUrl = relativeUrl.startsWith('/') ? `${baseUrl}${relativeUrl}` : relativeUrl;
+    fetch(targetUrl)
       .then(res => res.json())
       .then(data => {
         setHotels(data.results || [])
