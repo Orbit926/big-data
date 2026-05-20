@@ -9,7 +9,7 @@
 | Capa       | Tecnología                              |
 |------------|------------------------------------------|
 | Backend    | Python 3.11, Django 4.2, DRF, Gunicorn  |
-| Frontend   | Vite, React 18, Material UI              |
+| Frontend   | Vite 8, React 19, Tailwind CSS (via CDN) |
 | Base datos | SQLite (dev) → PostgreSQL (prod)         |
 | Data       | JSON / CSV + pandas                      |
 | Infra      | Docker, AWS ECS Fargate, Terraform       |
@@ -33,7 +33,7 @@ move/
 │   ├── entrypoint.sh
 │   └── requirements.txt
 │
-├── frontend/          → SPA Vite + React (no modificar desde aquí)
+├── frontend/          → SPA (Vite 8 + React 19 + Tailwind CSS)
 │
 ├── data/
 │   ├── raw/           → Datasets originales
@@ -102,14 +102,16 @@ docker compose logs -f
 
 ## Endpoints base
 
-| Método | URL                       | Descripción           |
-|--------|---------------------------|-----------------------|
-| GET    | `/api/health/`            | Health check          |
-| CRUD   | `/api/users/`             | Usuarios              |
-| CRUD   | `/api/trips/`             | Viajes                |
-| CRUD   | `/api/jams/`              | JAMs (grupos)         |
-| CRUD   | `/api/expenses/`          | Gastos                |
-| CRUD   | `/api/search/destinations/` | Motor de búsqueda   |
+| Método   | URL                         | Descripción                    |
+|----------|-----------------------------|--------------------------------|
+| GET      | `/api/health/`              | Health check                   |
+| POST/GET | `/api/auth/`                | Autenticación (JWT Http-Only)  |
+| CRUD     | `/api/users/`               | Usuarios y perfiles            |
+| CRUD     | `/api/trips/`               | Viajes                         |
+| CRUD     | `/api/jams/`                | JAMs (grupos colaborativos)     |
+| CRUD     | `/api/expenses/`            | División de gastos por JAM     |
+| GET      | `/api/search/destinations/` | Búsqueda de destinos           |
+| GET      | `/api/search/hotels/`       | Búsqueda de hoteles            |
 
 ---
 
