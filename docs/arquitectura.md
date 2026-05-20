@@ -7,7 +7,7 @@ MOVE es un monorepo con cuatro capas principales:
 ```
 move/
 ├── backend/       → API REST (Django + DRF)
-├── frontend/      → SPA (Vite + React + MUI)
+├── frontend/      → SPA (Vite 8 + React 19 + Tailwind CSS)
 ├── data/          → Datasets para el motor de búsqueda
 └── infra/         → Infraestructura como código (Terraform → pendiente)
 ```
@@ -29,7 +29,7 @@ move/
 | `authentication`| Login, logout, registro, refresh de tokens JWT                   |
 | `trips`         | Viajes y su ciclo de vida (organizer + participants)             |
 | `jams`          | Espacio colaborativo del viaje: miembros, roles y permisos       |
-| `expenses`      | División de gastos por JAM (pendiente)                           |
+| `expenses`      | División de gastos compartidos por JAM (implementado)             |
 | `search_engine` | Motor de búsqueda de destinos con Big Data                       |
 
 ---
@@ -73,10 +73,10 @@ DELETE /api/jams/{jam_id}/members/{member_id}/      Remover miembro (admin)
 
 ## Frontend
 
-- **Framework**: Vite + React 18
-- **UI**: Material UI (MUI)
-- **Estado**: Context API / Zustand (por definir)
-- **Comunicación**: Axios → `http://localhost:8000/api/`
+- **Framework**: Vite 8 + React 19
+- **UI**: Tailwind CSS (vía CDN) + CSS personalizado
+- **Estado**: Context API / State de React
+- **Comunicación**: API `fetch` nativa → `/api/`
 
 ---
 
