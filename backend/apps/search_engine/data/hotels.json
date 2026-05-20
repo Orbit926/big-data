@@ -1,0 +1,4994 @@
+[
+  {
+    "id": 1,
+    "name": "Sunset Suites CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.1,
+    "reviews": 2951,
+    "price_per_night": 399,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "ocean_view",
+      "breakfast",
+      "gym",
+      "parking",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 2,
+    "name": "Ocean Retreat Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 3823,
+    "price_per_night": 681,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "pool",
+      "parking",
+      "gym",
+      "ocean_view",
+      "air_conditioning",
+      "wifi",
+      "spa"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 3,
+    "name": "Royal Palace Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 935,
+    "price_per_night": 438,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "bar",
+      "parking",
+      "ocean_view",
+      "breakfast",
+      "wifi",
+      "gym",
+      "pet_friendly"
+    ],
+    "tags": [
+      "luxury",
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 4,
+    "name": "Sunset Lodge Paris",
+    "city": "Paris",
+    "country": "France",
+    "rating": 3.4,
+    "reviews": 3844,
+    "price_per_night": 787,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Paris. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "pool",
+      "parking",
+      "ocean_view"
+    ],
+    "tags": [
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": false
+  },
+  {
+    "id": 5,
+    "name": "Majestic Haven Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 3.4,
+    "reviews": 3985,
+    "price_per_night": 297,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "pet_friendly",
+      "breakfast",
+      "ocean_view",
+      "gym",
+      "restaurant"
+    ],
+    "tags": [
+      "luxury",
+      "family",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 6,
+    "name": "Majestic Suites Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.1,
+    "reviews": 2877,
+    "price_per_night": 661,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "parking",
+      "breakfast",
+      "bar"
+    ],
+    "tags": [
+      "nature",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 7,
+    "name": "Majestic Lodge Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 3.9,
+    "reviews": 673,
+    "price_per_night": 344,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "spa",
+      "pool",
+      "ocean_view",
+      "pet_friendly",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 8,
+    "name": "Sunset Suites Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 3.5,
+    "reviews": 3179,
+    "price_per_night": 500,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "pet_friendly",
+      "breakfast",
+      "restaurant",
+      "ocean_view",
+      "spa",
+      "parking"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 9,
+    "name": "Golden Plaza Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.5,
+    "reviews": 549,
+    "price_per_night": 756,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "parking",
+      "bar",
+      "breakfast"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": false
+  },
+  {
+    "id": 10,
+    "name": "Emerald Retreat New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 4.3,
+    "reviews": 2507,
+    "price_per_night": 388,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "restaurant",
+      "breakfast",
+      "gym"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 11,
+    "name": "Oasis Boutique Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.6,
+    "reviews": 2493,
+    "price_per_night": 381,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "pet_friendly",
+      "breakfast"
+    ],
+    "tags": [
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 12,
+    "name": "Oasis Lodge Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.1,
+    "reviews": 2072,
+    "price_per_night": 732,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "ocean_view",
+      "air_conditioning"
+    ],
+    "tags": [
+      "family"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 13,
+    "name": "Majestic Inn Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 3.7,
+    "reviews": 2396,
+    "price_per_night": 760,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "restaurant",
+      "wifi",
+      "bar",
+      "ocean_view",
+      "air_conditioning",
+      "pool"
+    ],
+    "tags": [
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": false
+  },
+  {
+    "id": 14,
+    "name": "Crystal Plaza Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.2,
+    "reviews": 1112,
+    "price_per_night": 679,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "parking",
+      "bar",
+      "air_conditioning",
+      "restaurant"
+    ],
+    "tags": [
+      "luxury",
+      "family",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 15,
+    "name": "Ocean Grand Resort CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.1,
+    "reviews": 4903,
+    "price_per_night": 339,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "air_conditioning",
+      "breakfast",
+      "parking",
+      "restaurant",
+      "gym"
+    ],
+    "tags": [
+      "nature",
+      "budget",
+      "beach",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 16,
+    "name": "Serene Plaza Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.3,
+    "reviews": 4281,
+    "price_per_night": 285,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "gym",
+      "wifi",
+      "spa",
+      "ocean_view",
+      "air_conditioning"
+    ],
+    "tags": [
+      "nature",
+      "city",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 17,
+    "name": "Urban Inn CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.3,
+    "reviews": 1880,
+    "price_per_night": 144,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "air_conditioning",
+      "breakfast",
+      "pet_friendly"
+    ],
+    "tags": [
+      "budget"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 18,
+    "name": "Sunset Retreat CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 4.6,
+    "reviews": 3780,
+    "price_per_night": 568,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "bar",
+      "gym",
+      "breakfast"
+    ],
+    "tags": [
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": false
+  },
+  {
+    "id": 19,
+    "name": "Sunset Haven New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 4.3,
+    "reviews": 1935,
+    "price_per_night": 730,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "pet_friendly",
+      "wifi",
+      "spa",
+      "air_conditioning",
+      "pool"
+    ],
+    "tags": [
+      "beach",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 20,
+    "name": "Majestic Haven Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 3.3,
+    "reviews": 551,
+    "price_per_night": 302,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "ocean_view",
+      "air_conditioning",
+      "breakfast",
+      "restaurant",
+      "wifi"
+    ],
+    "tags": [
+      "beach",
+      "city",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 21,
+    "name": "Serene Inn CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 5.0,
+    "reviews": 3959,
+    "price_per_night": 467,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "ocean_view",
+      "pool"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "family",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": false
+  },
+  {
+    "id": 22,
+    "name": "Golden Suites Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.4,
+    "reviews": 393,
+    "price_per_night": 336,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "breakfast",
+      "air_conditioning",
+      "parking",
+      "wifi",
+      "gym",
+      "restaurant"
+    ],
+    "tags": [
+      "budget"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": false
+  },
+  {
+    "id": 23,
+    "name": "Ocean Palace Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 4.6,
+    "reviews": 2669,
+    "price_per_night": 369,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "air_conditioning",
+      "pet_friendly",
+      "pool",
+      "gym",
+      "restaurant",
+      "wifi",
+      "spa"
+    ],
+    "tags": [
+      "family",
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 24,
+    "name": "Emerald Haven Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 3.1,
+    "reviews": 4090,
+    "price_per_night": 685,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "ocean_view",
+      "wifi",
+      "spa",
+      "pool"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "budget",
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 25,
+    "name": "Urban Palace Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.2,
+    "reviews": 4598,
+    "price_per_night": 94,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "breakfast",
+      "spa"
+    ],
+    "tags": [
+      "luxury",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 26,
+    "name": "Ocean Plaza Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 4.0,
+    "reviews": 4551,
+    "price_per_night": 115,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "restaurant",
+      "pool",
+      "pet_friendly",
+      "breakfast",
+      "wifi",
+      "parking"
+    ],
+    "tags": [
+      "family",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": false
+  },
+  {
+    "id": 27,
+    "name": "Crystal Grand Resort Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 3.8,
+    "reviews": 3709,
+    "price_per_night": 189,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "spa",
+      "bar",
+      "breakfast",
+      "pet_friendly",
+      "air_conditioning"
+    ],
+    "tags": [
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 28,
+    "name": "Majestic Lodge Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 3.6,
+    "reviews": 923,
+    "price_per_night": 381,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "pet_friendly",
+      "parking",
+      "wifi",
+      "pool",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 29,
+    "name": "Royal Plaza Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.7,
+    "reviews": 2305,
+    "price_per_night": 291,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "air_conditioning",
+      "gym",
+      "bar",
+      "pet_friendly",
+      "breakfast"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 30,
+    "name": "Crystal Grand Resort CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 3510,
+    "price_per_night": 347,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "pet_friendly",
+      "restaurant",
+      "breakfast"
+    ],
+    "tags": [
+      "budget"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": false
+  },
+  {
+    "id": 31,
+    "name": "Golden Plaza Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.6,
+    "reviews": 3898,
+    "price_per_night": 189,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "air_conditioning",
+      "gym",
+      "restaurant"
+    ],
+    "tags": [
+      "nature",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 32,
+    "name": "Majestic Suites Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.6,
+    "reviews": 3657,
+    "price_per_night": 380,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "parking",
+      "gym",
+      "pet_friendly",
+      "spa",
+      "air_conditioning",
+      "pool"
+    ],
+    "tags": [
+      "nature",
+      "family"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 33,
+    "name": "Oasis Grand Resort New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 4.2,
+    "reviews": 2295,
+    "price_per_night": 450,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "wifi",
+      "pet_friendly",
+      "pool"
+    ],
+    "tags": [
+      "nature",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 34,
+    "name": "Emerald Haven Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 3.9,
+    "reviews": 4149,
+    "price_per_night": 328,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "air_conditioning",
+      "pet_friendly",
+      "parking",
+      "gym",
+      "breakfast"
+    ],
+    "tags": [
+      "luxury",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 35,
+    "name": "Royal Boutique Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.2,
+    "reviews": 4993,
+    "price_per_night": 603,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "pet_friendly",
+      "spa",
+      "pool",
+      "parking",
+      "bar",
+      "restaurant"
+    ],
+    "tags": [
+      "nature",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 36,
+    "name": "Golden Plaza Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 4.3,
+    "reviews": 4858,
+    "price_per_night": 528,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "gym",
+      "air_conditioning"
+    ],
+    "tags": [
+      "family",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": false
+  },
+  {
+    "id": 37,
+    "name": "Sunset Haven Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 3.7,
+    "reviews": 1722,
+    "price_per_night": 599,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "spa",
+      "bar",
+      "gym"
+    ],
+    "tags": [
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 38,
+    "name": "Majestic Haven Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.0,
+    "reviews": 1709,
+    "price_per_night": 248,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "gym",
+      "wifi",
+      "pool",
+      "parking",
+      "breakfast",
+      "ocean_view",
+      "air_conditioning"
+    ],
+    "tags": [
+      "family",
+      "city",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 39,
+    "name": "Golden Suites Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 5.0,
+    "reviews": 3839,
+    "price_per_night": 314,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "bar",
+      "ocean_view",
+      "gym"
+    ],
+    "tags": [
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 40,
+    "name": "Crystal Grand Resort Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.4,
+    "reviews": 3650,
+    "price_per_night": 426,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "ocean_view",
+      "spa",
+      "pet_friendly",
+      "bar",
+      "parking"
+    ],
+    "tags": [
+      "family",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 41,
+    "name": "Sunset Suites Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 3.2,
+    "reviews": 2245,
+    "price_per_night": 256,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "ocean_view",
+      "gym",
+      "pool",
+      "breakfast"
+    ],
+    "tags": [
+      "budget",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": false
+  },
+  {
+    "id": 42,
+    "name": "Urban Haven New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 4.2,
+    "reviews": 1506,
+    "price_per_night": 644,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "restaurant",
+      "bar",
+      "breakfast",
+      "air_conditioning",
+      "wifi",
+      "pet_friendly"
+    ],
+    "tags": [
+      "family",
+      "budget"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 43,
+    "name": "Golden Haven Paris",
+    "city": "Paris",
+    "country": "France",
+    "rating": 3.5,
+    "reviews": 1440,
+    "price_per_night": 385,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Paris. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "restaurant",
+      "parking",
+      "breakfast",
+      "spa",
+      "gym",
+      "air_conditioning",
+      "wifi"
+    ],
+    "tags": [
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": false
+  },
+  {
+    "id": 44,
+    "name": "Royal Haven Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.8,
+    "reviews": 4590,
+    "price_per_night": 631,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "restaurant",
+      "spa",
+      "bar",
+      "wifi",
+      "pool",
+      "pet_friendly",
+      "breakfast"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 45,
+    "name": "Royal Grand Resort Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.9,
+    "reviews": 2175,
+    "price_per_night": 627,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "pool",
+      "bar",
+      "ocean_view"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "family"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 46,
+    "name": "Royal Boutique Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 3.8,
+    "reviews": 778,
+    "price_per_night": 732,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "bar",
+      "pool",
+      "pet_friendly",
+      "restaurant",
+      "wifi"
+    ],
+    "tags": [
+      "nature",
+      "luxury",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 47,
+    "name": "Sunset Haven Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 5.0,
+    "reviews": 3737,
+    "price_per_night": 345,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "pool",
+      "spa",
+      "gym",
+      "pet_friendly",
+      "restaurant",
+      "bar"
+    ],
+    "tags": [
+      "nature",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": false
+  },
+  {
+    "id": 48,
+    "name": "Emerald Grand Resort Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.9,
+    "reviews": 4276,
+    "price_per_night": 593,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "spa",
+      "pet_friendly",
+      "bar",
+      "pool",
+      "restaurant",
+      "air_conditioning",
+      "gym"
+    ],
+    "tags": [
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 49,
+    "name": "Urban Palace Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 4.6,
+    "reviews": 2369,
+    "price_per_night": 112,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "spa",
+      "pool",
+      "breakfast"
+    ],
+    "tags": [
+      "beach",
+      "family"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 50,
+    "name": "Crystal Palace Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 3.4,
+    "reviews": 2763,
+    "price_per_night": 63,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "ocean_view",
+      "bar",
+      "pet_friendly",
+      "air_conditioning",
+      "gym",
+      "breakfast"
+    ],
+    "tags": [
+      "beach",
+      "city",
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 51,
+    "name": "Ocean Inn Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.3,
+    "reviews": 3476,
+    "price_per_night": 768,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "wifi",
+      "ocean_view"
+    ],
+    "tags": [
+      "luxury",
+      "city",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 52,
+    "name": "Ocean Lodge Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.7,
+    "reviews": 1207,
+    "price_per_night": 674,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "parking",
+      "wifi"
+    ],
+    "tags": [
+      "nature",
+      "beach",
+      "business",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 53,
+    "name": "Oasis Haven Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 3.1,
+    "reviews": 2854,
+    "price_per_night": 582,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "bar",
+      "breakfast",
+      "spa",
+      "parking",
+      "pool"
+    ],
+    "tags": [
+      "beach",
+      "budget",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": false
+  },
+  {
+    "id": 54,
+    "name": "Oasis Plaza Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.9,
+    "reviews": 2932,
+    "price_per_night": 134,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "pool",
+      "spa",
+      "wifi",
+      "breakfast",
+      "ocean_view",
+      "pet_friendly",
+      "restaurant"
+    ],
+    "tags": [
+      "nature",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 55,
+    "name": "Oasis Boutique Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 2848,
+    "price_per_night": 405,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "wifi",
+      "pool",
+      "air_conditioning",
+      "parking",
+      "spa",
+      "gym"
+    ],
+    "tags": [
+      "luxury",
+      "budget"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": false
+  },
+  {
+    "id": 56,
+    "name": "Royal Haven Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.5,
+    "reviews": 4923,
+    "price_per_night": 616,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "restaurant",
+      "breakfast",
+      "air_conditioning"
+    ],
+    "tags": [
+      "family",
+      "budget",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 57,
+    "name": "Crystal Inn Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.8,
+    "reviews": 3632,
+    "price_per_night": 61,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "pet_friendly",
+      "restaurant",
+      "air_conditioning",
+      "spa",
+      "gym"
+    ],
+    "tags": [
+      "luxury",
+      "budget",
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 58,
+    "name": "Royal Palace Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 3.4,
+    "reviews": 4952,
+    "price_per_night": 587,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "spa",
+      "parking",
+      "air_conditioning"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 59,
+    "name": "Ocean Grand Resort Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 4.3,
+    "reviews": 938,
+    "price_per_night": 348,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "wifi",
+      "air_conditioning"
+    ],
+    "tags": [
+      "family",
+      "beach",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 60,
+    "name": "Sunset Lodge Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 3.3,
+    "reviews": 2905,
+    "price_per_night": 243,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "bar",
+      "spa",
+      "restaurant",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": false
+  },
+  {
+    "id": 61,
+    "name": "Majestic Inn Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.0,
+    "reviews": 1888,
+    "price_per_night": 395,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "spa",
+      "parking",
+      "wifi",
+      "breakfast",
+      "ocean_view",
+      "air_conditioning",
+      "gym"
+    ],
+    "tags": [
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 62,
+    "name": "Sunset Palace New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 5.0,
+    "reviews": 386,
+    "price_per_night": 700,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "ocean_view",
+      "breakfast",
+      "wifi",
+      "spa",
+      "bar",
+      "air_conditioning"
+    ],
+    "tags": [
+      "nature",
+      "beach",
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 63,
+    "name": "Royal Retreat Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.6,
+    "reviews": 1699,
+    "price_per_night": 276,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "pet_friendly",
+      "parking",
+      "pool"
+    ],
+    "tags": [
+      "luxury",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": false
+  },
+  {
+    "id": 64,
+    "name": "Golden Lodge Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.8,
+    "reviews": 714,
+    "price_per_night": 180,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "bar",
+      "pool",
+      "air_conditioning",
+      "spa"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 65,
+    "name": "Crystal Inn Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.7,
+    "reviews": 90,
+    "price_per_night": 652,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "parking",
+      "restaurant",
+      "pet_friendly"
+    ],
+    "tags": [
+      "luxury",
+      "business",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 66,
+    "name": "Crystal Palace Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.6,
+    "reviews": 4022,
+    "price_per_night": 67,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "breakfast",
+      "pet_friendly",
+      "spa",
+      "ocean_view",
+      "parking"
+    ],
+    "tags": [
+      "budget",
+      "family",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 67,
+    "name": "Royal Plaza Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.5,
+    "reviews": 35,
+    "price_per_night": 431,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "air_conditioning",
+      "gym",
+      "bar",
+      "restaurant",
+      "breakfast",
+      "spa",
+      "pet_friendly"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 68,
+    "name": "Crystal Plaza Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 3259,
+    "price_per_night": 461,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "pool",
+      "pet_friendly"
+    ],
+    "tags": [
+      "luxury",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": false
+  },
+  {
+    "id": 69,
+    "name": "Golden Palace Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.1,
+    "reviews": 3164,
+    "price_per_night": 171,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "gym",
+      "restaurant",
+      "bar",
+      "air_conditioning"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 70,
+    "name": "Emerald Grand Resort Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 4.1,
+    "reviews": 1687,
+    "price_per_night": 207,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "bar",
+      "pool",
+      "pet_friendly",
+      "gym",
+      "air_conditioning"
+    ],
+    "tags": [
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": false
+  },
+  {
+    "id": 71,
+    "name": "Golden Haven Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.9,
+    "reviews": 3343,
+    "price_per_night": 279,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "bar",
+      "ocean_view",
+      "breakfast",
+      "pool",
+      "parking",
+      "gym",
+      "wifi"
+    ],
+    "tags": [
+      "nature",
+      "budget",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": false
+  },
+  {
+    "id": 72,
+    "name": "Royal Suites Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.9,
+    "reviews": 291,
+    "price_per_night": 469,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "wifi",
+      "spa",
+      "restaurant",
+      "pet_friendly",
+      "air_conditioning",
+      "breakfast",
+      "pool"
+    ],
+    "tags": [
+      "nature",
+      "budget",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": false
+  },
+  {
+    "id": 73,
+    "name": "Majestic Palace Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 3.4,
+    "reviews": 2325,
+    "price_per_night": 144,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "breakfast",
+      "spa"
+    ],
+    "tags": [
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 74,
+    "name": "Majestic Plaza Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.9,
+    "reviews": 4823,
+    "price_per_night": 424,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "gym",
+      "pet_friendly",
+      "ocean_view",
+      "breakfast",
+      "wifi",
+      "spa"
+    ],
+    "tags": [
+      "budget",
+      "nature",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": false
+  },
+  {
+    "id": 75,
+    "name": "Emerald Plaza Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 2988,
+    "price_per_night": 479,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "gym",
+      "bar",
+      "ocean_view"
+    ],
+    "tags": [
+      "business",
+      "budget",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": false
+  },
+  {
+    "id": 76,
+    "name": "Golden Plaza Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 1912,
+    "price_per_night": 400,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "wifi",
+      "bar",
+      "air_conditioning",
+      "pet_friendly"
+    ],
+    "tags": [
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 77,
+    "name": "Sunset Boutique Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 3.0,
+    "reviews": 604,
+    "price_per_night": 581,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "pet_friendly",
+      "bar",
+      "pool",
+      "parking"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 78,
+    "name": "Majestic Suites CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.1,
+    "reviews": 1309,
+    "price_per_night": 745,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "parking",
+      "breakfast"
+    ],
+    "tags": [
+      "nature",
+      "budget",
+      "business",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": false
+  },
+  {
+    "id": 79,
+    "name": "Ocean Plaza Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 4216,
+    "price_per_night": 721,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "bar",
+      "air_conditioning"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 80,
+    "name": "Royal Suites Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.3,
+    "reviews": 4388,
+    "price_per_night": 384,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "pool",
+      "air_conditioning",
+      "breakfast",
+      "pet_friendly",
+      "parking"
+    ],
+    "tags": [
+      "budget",
+      "family",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": false
+  },
+  {
+    "id": 81,
+    "name": "Royal Grand Resort Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.5,
+    "reviews": 4301,
+    "price_per_night": 262,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "spa",
+      "air_conditioning"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 82,
+    "name": "Sunset Plaza Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.6,
+    "reviews": 2853,
+    "price_per_night": 640,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "spa",
+      "breakfast",
+      "ocean_view",
+      "pet_friendly",
+      "parking",
+      "gym",
+      "wifi"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": false
+  },
+  {
+    "id": 83,
+    "name": "Sunset Grand Resort Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.2,
+    "reviews": 4312,
+    "price_per_night": 166,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "breakfast",
+      "air_conditioning",
+      "ocean_view",
+      "restaurant"
+    ],
+    "tags": [
+      "family",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 84,
+    "name": "Oasis Grand Resort Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.4,
+    "reviews": 3310,
+    "price_per_night": 580,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "spa",
+      "pet_friendly",
+      "gym"
+    ],
+    "tags": [
+      "luxury",
+      "budget",
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": false
+  },
+  {
+    "id": 85,
+    "name": "Majestic Haven Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.2,
+    "reviews": 4095,
+    "price_per_night": 534,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "wifi",
+      "gym"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "family",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 86,
+    "name": "Crystal Haven Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 3.4,
+    "reviews": 94,
+    "price_per_night": 392,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "bar",
+      "parking",
+      "restaurant",
+      "gym"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 87,
+    "name": "Oasis Boutique Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.8,
+    "reviews": 364,
+    "price_per_night": 438,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "bar",
+      "ocean_view",
+      "restaurant"
+    ],
+    "tags": [
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 88,
+    "name": "Emerald Inn Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.8,
+    "reviews": 1891,
+    "price_per_night": 104,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "pool",
+      "pet_friendly",
+      "parking",
+      "ocean_view",
+      "restaurant"
+    ],
+    "tags": [
+      "nature",
+      "beach",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": false
+  },
+  {
+    "id": 89,
+    "name": "Urban Retreat Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 900,
+    "price_per_night": 60,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "pet_friendly",
+      "bar",
+      "parking",
+      "ocean_view",
+      "air_conditioning",
+      "wifi",
+      "restaurant"
+    ],
+    "tags": [
+      "luxury",
+      "family",
+      "city",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": false
+  },
+  {
+    "id": 90,
+    "name": "Urban Haven Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.7,
+    "reviews": 4512,
+    "price_per_night": 227,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "breakfast",
+      "pool",
+      "air_conditioning",
+      "pet_friendly",
+      "bar",
+      "wifi"
+    ],
+    "tags": [
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 91,
+    "name": "Sunset Inn Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 4.4,
+    "reviews": 2993,
+    "price_per_night": 350,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "gym",
+      "parking",
+      "air_conditioning"
+    ],
+    "tags": [
+      "beach",
+      "city",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 92,
+    "name": "Serene Plaza Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.8,
+    "reviews": 1000,
+    "price_per_night": 672,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "spa",
+      "ocean_view",
+      "air_conditioning"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 93,
+    "name": "Emerald Haven Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.2,
+    "reviews": 1223,
+    "price_per_night": 794,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "gym",
+      "pool"
+    ],
+    "tags": [
+      "family",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 94,
+    "name": "Crystal Plaza CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 4.4,
+    "reviews": 1609,
+    "price_per_night": 406,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "breakfast",
+      "parking",
+      "gym",
+      "ocean_view",
+      "restaurant"
+    ],
+    "tags": [
+      "budget",
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": false
+  },
+  {
+    "id": 95,
+    "name": "Urban Plaza Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.6,
+    "reviews": 654,
+    "price_per_night": 207,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "breakfast",
+      "restaurant",
+      "air_conditioning",
+      "wifi",
+      "pool",
+      "parking"
+    ],
+    "tags": [
+      "nature",
+      "luxury",
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 96,
+    "name": "Emerald Haven Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 3.5,
+    "reviews": 276,
+    "price_per_night": 501,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "restaurant",
+      "pet_friendly",
+      "gym",
+      "parking",
+      "air_conditioning",
+      "spa"
+    ],
+    "tags": [
+      "beach",
+      "budget",
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": false
+  },
+  {
+    "id": 97,
+    "name": "Majestic Inn CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 2630,
+    "price_per_night": 402,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "ocean_view",
+      "breakfast",
+      "bar",
+      "parking",
+      "restaurant",
+      "pet_friendly"
+    ],
+    "tags": [
+      "nature",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": false
+  },
+  {
+    "id": 98,
+    "name": "Emerald Haven Paris",
+    "city": "Paris",
+    "country": "France",
+    "rating": 3.8,
+    "reviews": 588,
+    "price_per_night": 483,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Paris. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "ocean_view",
+      "air_conditioning",
+      "wifi",
+      "gym",
+      "spa"
+    ],
+    "tags": [
+      "nature",
+      "luxury",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": false
+  },
+  {
+    "id": 99,
+    "name": "Urban Inn Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.5,
+    "reviews": 3404,
+    "price_per_night": 283,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "parking",
+      "breakfast",
+      "bar"
+    ],
+    "tags": [
+      "beach",
+      "family",
+      "all_inclusive",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 100,
+    "name": "Golden Lodge Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 3.2,
+    "reviews": 910,
+    "price_per_night": 738,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "breakfast",
+      "restaurant",
+      "wifi",
+      "air_conditioning",
+      "parking",
+      "pet_friendly",
+      "gym"
+    ],
+    "tags": [
+      "nature",
+      "business",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 101,
+    "name": "Royal Haven Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 3.1,
+    "reviews": 4430,
+    "price_per_night": 264,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "bar",
+      "pool",
+      "wifi",
+      "ocean_view",
+      "pet_friendly",
+      "gym"
+    ],
+    "tags": [
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": false
+  },
+  {
+    "id": 102,
+    "name": "Sunset Inn Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.0,
+    "reviews": 3913,
+    "price_per_night": 785,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "pet_friendly",
+      "wifi",
+      "parking",
+      "bar",
+      "spa"
+    ],
+    "tags": [
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 103,
+    "name": "Urban Inn Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 4.1,
+    "reviews": 3856,
+    "price_per_night": 183,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "air_conditioning",
+      "breakfast",
+      "bar",
+      "spa",
+      "pool",
+      "restaurant"
+    ],
+    "tags": [
+      "nature",
+      "family"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 104,
+    "name": "Urban Retreat Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.0,
+    "reviews": 2632,
+    "price_per_night": 789,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "restaurant",
+      "wifi",
+      "ocean_view",
+      "pool",
+      "breakfast"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": false
+  },
+  {
+    "id": 105,
+    "name": "Emerald Grand Resort Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.7,
+    "reviews": 1313,
+    "price_per_night": 310,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "gym",
+      "spa"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 106,
+    "name": "Majestic Boutique Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.0,
+    "reviews": 3358,
+    "price_per_night": 723,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "spa",
+      "pet_friendly"
+    ],
+    "tags": [
+      "nature",
+      "luxury",
+      "budget",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 107,
+    "name": "Sunset Palace Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 4417,
+    "price_per_night": 216,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "bar",
+      "ocean_view",
+      "pet_friendly",
+      "restaurant",
+      "pool",
+      "breakfast"
+    ],
+    "tags": [
+      "luxury",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 108,
+    "name": "Urban Suites New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 3.7,
+    "reviews": 1358,
+    "price_per_night": 217,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "restaurant",
+      "ocean_view",
+      "bar",
+      "pool"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "budget",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 109,
+    "name": "Royal Palace Paris",
+    "city": "Paris",
+    "country": "France",
+    "rating": 3.5,
+    "reviews": 3367,
+    "price_per_night": 769,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Paris. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "pool",
+      "air_conditioning",
+      "breakfast",
+      "wifi"
+    ],
+    "tags": [
+      "beach",
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 110,
+    "name": "Ocean Plaza Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.9,
+    "reviews": 1723,
+    "price_per_night": 634,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "spa",
+      "parking",
+      "gym",
+      "air_conditioning",
+      "ocean_view",
+      "bar",
+      "pet_friendly"
+    ],
+    "tags": [
+      "beach",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 111,
+    "name": "Emerald Plaza Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 3.6,
+    "reviews": 3838,
+    "price_per_night": 62,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "gym",
+      "parking"
+    ],
+    "tags": [
+      "budget",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 112,
+    "name": "Emerald Plaza Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 3.9,
+    "reviews": 378,
+    "price_per_night": 674,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "pool",
+      "air_conditioning",
+      "gym",
+      "spa",
+      "bar",
+      "ocean_view"
+    ],
+    "tags": [
+      "budget"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": false
+  },
+  {
+    "id": 113,
+    "name": "Oasis Palace Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 4.7,
+    "reviews": 3015,
+    "price_per_night": 770,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "pet_friendly",
+      "wifi",
+      "restaurant"
+    ],
+    "tags": [
+      "luxury",
+      "business",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": false
+  },
+  {
+    "id": 114,
+    "name": "Oasis Plaza Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 1761,
+    "price_per_night": 370,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "ocean_view",
+      "breakfast",
+      "bar"
+    ],
+    "tags": [
+      "family",
+      "business",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 115,
+    "name": "Royal Boutique Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.7,
+    "reviews": 1418,
+    "price_per_night": 366,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "air_conditioning",
+      "gym",
+      "wifi",
+      "restaurant"
+    ],
+    "tags": [
+      "city",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": false
+  },
+  {
+    "id": 116,
+    "name": "Serene Inn Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.0,
+    "reviews": 1574,
+    "price_per_night": 190,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "pet_friendly",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury",
+      "family",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 117,
+    "name": "Ocean Palace Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 3.1,
+    "reviews": 3824,
+    "price_per_night": 334,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "pool",
+      "air_conditioning",
+      "gym",
+      "breakfast",
+      "ocean_view"
+    ],
+    "tags": [
+      "nature",
+      "beach",
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": false
+  },
+  {
+    "id": 118,
+    "name": "Golden Inn Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.4,
+    "reviews": 1032,
+    "price_per_night": 181,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "restaurant",
+      "bar",
+      "pet_friendly",
+      "air_conditioning",
+      "wifi"
+    ],
+    "tags": [
+      "beach",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 119,
+    "name": "Oasis Suites New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 3.6,
+    "reviews": 2019,
+    "price_per_night": 461,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "pet_friendly",
+      "restaurant",
+      "ocean_view",
+      "spa",
+      "breakfast",
+      "gym"
+    ],
+    "tags": [
+      "nature",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 120,
+    "name": "Ocean Plaza Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.6,
+    "reviews": 3564,
+    "price_per_night": 325,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "air_conditioning",
+      "breakfast"
+    ],
+    "tags": [
+      "family",
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 121,
+    "name": "Crystal Retreat Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.0,
+    "reviews": 3679,
+    "price_per_night": 501,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "parking",
+      "breakfast",
+      "spa",
+      "bar",
+      "gym"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": false
+  },
+  {
+    "id": 122,
+    "name": "Oasis Lodge Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.8,
+    "reviews": 3098,
+    "price_per_night": 670,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "wifi",
+      "restaurant",
+      "pool",
+      "gym",
+      "parking",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury",
+      "budget"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": false
+  },
+  {
+    "id": 123,
+    "name": "Royal Palace CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.0,
+    "reviews": 3671,
+    "price_per_night": 283,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "parking"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 124,
+    "name": "Royal Lodge Paris",
+    "city": "Paris",
+    "country": "France",
+    "rating": 4.4,
+    "reviews": 1835,
+    "price_per_night": 606,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Paris. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "air_conditioning",
+      "spa",
+      "breakfast",
+      "wifi",
+      "gym",
+      "pool"
+    ],
+    "tags": [
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 125,
+    "name": "Majestic Lodge Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 4080,
+    "price_per_night": 323,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "ocean_view",
+      "parking",
+      "bar"
+    ],
+    "tags": [
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 126,
+    "name": "Urban Lodge Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 4504,
+    "price_per_night": 141,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "ocean_view",
+      "spa",
+      "pet_friendly",
+      "gym",
+      "restaurant",
+      "wifi"
+    ],
+    "tags": [
+      "nature",
+      "budget",
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 127,
+    "name": "Serene Retreat Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 3.8,
+    "reviews": 2464,
+    "price_per_night": 388,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "ocean_view",
+      "bar",
+      "parking",
+      "air_conditioning",
+      "wifi",
+      "spa"
+    ],
+    "tags": [
+      "nature",
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 128,
+    "name": "Serene Haven CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.8,
+    "reviews": 751,
+    "price_per_night": 763,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "parking",
+      "air_conditioning",
+      "ocean_view",
+      "bar",
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "luxury",
+      "family",
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": false
+  },
+  {
+    "id": 129,
+    "name": "Golden Plaza Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.4,
+    "reviews": 2657,
+    "price_per_night": 765,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "ocean_view",
+      "bar"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 130,
+    "name": "Crystal Palace Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.1,
+    "reviews": 3057,
+    "price_per_night": 726,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "pet_friendly",
+      "ocean_view",
+      "air_conditioning",
+      "parking",
+      "bar",
+      "gym"
+    ],
+    "tags": [
+      "beach",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 131,
+    "name": "Sunset Boutique Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.2,
+    "reviews": 4478,
+    "price_per_night": 734,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "air_conditioning",
+      "gym"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": false
+  },
+  {
+    "id": 132,
+    "name": "Serene Retreat Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.6,
+    "reviews": 1444,
+    "price_per_night": 507,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "spa",
+      "breakfast",
+      "pet_friendly",
+      "ocean_view",
+      "wifi",
+      "gym"
+    ],
+    "tags": [
+      "luxury",
+      "budget",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 133,
+    "name": "Urban Palace Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 3.4,
+    "reviews": 4733,
+    "price_per_night": 612,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "spa",
+      "parking",
+      "ocean_view",
+      "pet_friendly",
+      "pool",
+      "bar"
+    ],
+    "tags": [
+      "family",
+      "business",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 134,
+    "name": "Ocean Plaza CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.8,
+    "reviews": 2045,
+    "price_per_night": 260,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "parking",
+      "wifi"
+    ],
+    "tags": [
+      "budget",
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 135,
+    "name": "Ocean Suites Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 3.8,
+    "reviews": 4622,
+    "price_per_night": 233,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "ocean_view",
+      "spa",
+      "parking",
+      "gym",
+      "air_conditioning"
+    ],
+    "tags": [
+      "family",
+      "business",
+      "all_inclusive",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 136,
+    "name": "Royal Suites Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.0,
+    "reviews": 2106,
+    "price_per_night": 434,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "restaurant",
+      "pool",
+      "air_conditioning",
+      "breakfast",
+      "parking"
+    ],
+    "tags": [
+      "nature",
+      "budget",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": false
+  },
+  {
+    "id": 137,
+    "name": "Urban Suites New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 3.9,
+    "reviews": 2279,
+    "price_per_night": 340,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "spa",
+      "parking",
+      "gym",
+      "wifi",
+      "ocean_view",
+      "bar",
+      "pet_friendly"
+    ],
+    "tags": [
+      "nature",
+      "luxury",
+      "budget",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 138,
+    "name": "Sunset Palace Tokyo",
+    "city": "Tokyo",
+    "country": "Japan",
+    "rating": 4.8,
+    "reviews": 4973,
+    "price_per_night": 80,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Tokyo. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "breakfast",
+      "air_conditioning",
+      "bar",
+      "pet_friendly",
+      "spa"
+    ],
+    "tags": [
+      "budget",
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 139,
+    "name": "Serene Suites New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 3.8,
+    "reviews": 4406,
+    "price_per_night": 794,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "pet_friendly",
+      "pool",
+      "air_conditioning",
+      "gym",
+      "bar",
+      "ocean_view"
+    ],
+    "tags": [
+      "family",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": false
+  },
+  {
+    "id": 140,
+    "name": "Urban Suites Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 3.7,
+    "reviews": 2649,
+    "price_per_night": 604,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "pool",
+      "breakfast",
+      "restaurant"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "family",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": false
+  },
+  {
+    "id": 141,
+    "name": "Crystal Retreat Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 4720,
+    "price_per_night": 476,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "bar",
+      "breakfast",
+      "ocean_view",
+      "restaurant",
+      "gym",
+      "spa",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury",
+      "family",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 142,
+    "name": "Serene Haven Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 4150,
+    "price_per_night": 325,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "bar",
+      "ocean_view"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 143,
+    "name": "Ocean Plaza New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 3.9,
+    "reviews": 4589,
+    "price_per_night": 278,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "parking",
+      "pet_friendly",
+      "air_conditioning",
+      "bar"
+    ],
+    "tags": [
+      "luxury",
+      "family",
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 144,
+    "name": "Serene Haven Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 3.1,
+    "reviews": 3934,
+    "price_per_night": 648,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "bar",
+      "parking",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 145,
+    "name": "Ocean Grand Resort Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 3.5,
+    "reviews": 4052,
+    "price_per_night": 530,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "breakfast",
+      "restaurant",
+      "parking",
+      "ocean_view"
+    ],
+    "tags": [
+      "family",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 146,
+    "name": "Serene Suites Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 3.4,
+    "reviews": 884,
+    "price_per_night": 76,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "bar",
+      "ocean_view",
+      "breakfast",
+      "air_conditioning",
+      "pet_friendly"
+    ],
+    "tags": [
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": false
+  },
+  {
+    "id": 147,
+    "name": "Royal Lodge Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 3303,
+    "price_per_night": 529,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "wifi",
+      "spa",
+      "pet_friendly",
+      "bar",
+      "restaurant",
+      "gym"
+    ],
+    "tags": [
+      "luxury",
+      "family"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": false
+  },
+  {
+    "id": 148,
+    "name": "Royal Plaza Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 4.1,
+    "reviews": 3587,
+    "price_per_night": 274,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "restaurant",
+      "spa",
+      "parking",
+      "pet_friendly"
+    ],
+    "tags": [
+      "luxury",
+      "family",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 149,
+    "name": "Ocean Boutique CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.8,
+    "reviews": 4536,
+    "price_per_night": 81,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "wifi",
+      "parking",
+      "ocean_view",
+      "pool",
+      "breakfast"
+    ],
+    "tags": [
+      "business",
+      "city",
+      "all_inclusive",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 150,
+    "name": "Sunset Inn Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 4.9,
+    "reviews": 4834,
+    "price_per_night": 104,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "pet_friendly",
+      "parking",
+      "gym"
+    ],
+    "tags": [
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": false
+  },
+  {
+    "id": 151,
+    "name": "Royal Boutique Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.3,
+    "reviews": 782,
+    "price_per_night": 153,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "air_conditioning",
+      "ocean_view",
+      "gym",
+      "wifi",
+      "bar",
+      "breakfast",
+      "spa"
+    ],
+    "tags": [
+      "family",
+      "beach",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 152,
+    "name": "Urban Boutique CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 4.6,
+    "reviews": 2950,
+    "price_per_night": 182,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "wifi",
+      "breakfast",
+      "pet_friendly"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 153,
+    "name": "Sunset Boutique Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.1,
+    "reviews": 1405,
+    "price_per_night": 673,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "bar",
+      "pet_friendly",
+      "restaurant",
+      "parking",
+      "spa",
+      "gym",
+      "wifi"
+    ],
+    "tags": [
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": false
+  },
+  {
+    "id": 154,
+    "name": "Majestic Inn Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 3.1,
+    "reviews": 25,
+    "price_per_night": 284,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "spa",
+      "gym"
+    ],
+    "tags": [
+      "beach",
+      "romantic",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 155,
+    "name": "Emerald Boutique Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 5.0,
+    "reviews": 389,
+    "price_per_night": 450,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "parking",
+      "bar",
+      "breakfast",
+      "gym",
+      "air_conditioning"
+    ],
+    "tags": [
+      "luxury",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 156,
+    "name": "Serene Inn Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 4.4,
+    "reviews": 62,
+    "price_per_night": 507,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "pet_friendly",
+      "parking",
+      "pool",
+      "restaurant",
+      "gym",
+      "ocean_view",
+      "bar"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": false
+  },
+  {
+    "id": 157,
+    "name": "Oasis Suites Rome",
+    "city": "Rome",
+    "country": "Italy",
+    "rating": 3.4,
+    "reviews": 2601,
+    "price_per_night": 388,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Rome. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "breakfast",
+      "gym"
+    ],
+    "tags": [
+      "nature",
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": false
+  },
+  {
+    "id": 158,
+    "name": "Crystal Retreat Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 2750,
+    "price_per_night": 332,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "parking",
+      "bar",
+      "air_conditioning",
+      "wifi",
+      "gym",
+      "spa",
+      "ocean_view"
+    ],
+    "tags": [
+      "budget",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 159,
+    "name": "Oasis Suites Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.4,
+    "reviews": 1518,
+    "price_per_night": 309,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "pet_friendly",
+      "ocean_view"
+    ],
+    "tags": [
+      "nature",
+      "luxury",
+      "family",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 160,
+    "name": "Royal Suites New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 3.4,
+    "reviews": 1823,
+    "price_per_night": 315,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "pool",
+      "parking",
+      "ocean_view",
+      "wifi",
+      "pet_friendly",
+      "gym",
+      "breakfast"
+    ],
+    "tags": [
+      "luxury",
+      "budget"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": false
+  },
+  {
+    "id": 161,
+    "name": "Serene Plaza CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 4.6,
+    "reviews": 611,
+    "price_per_night": 322,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "bar",
+      "gym",
+      "wifi"
+    ],
+    "tags": [
+      "all_inclusive",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": false
+  },
+  {
+    "id": 162,
+    "name": "Golden Inn Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.5,
+    "reviews": 110,
+    "price_per_night": 640,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "pet_friendly",
+      "air_conditioning",
+      "bar"
+    ],
+    "tags": [
+      "family"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 163,
+    "name": "Majestic Retreat New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 4.9,
+    "reviews": 3339,
+    "price_per_night": 390,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "restaurant",
+      "bar",
+      "breakfast",
+      "spa"
+    ],
+    "tags": [
+      "luxury",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 164,
+    "name": "Serene Retreat Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 4056,
+    "price_per_night": 89,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "bar",
+      "pet_friendly",
+      "wifi"
+    ],
+    "tags": [
+      "nature",
+      "all_inclusive",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": false
+  },
+  {
+    "id": 165,
+    "name": "Serene Boutique Paris",
+    "city": "Paris",
+    "country": "France",
+    "rating": 4.1,
+    "reviews": 4122,
+    "price_per_night": 117,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Paris. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "parking",
+      "pool"
+    ],
+    "tags": [
+      "family",
+      "beach",
+      "city",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 166,
+    "name": "Golden Suites Paris",
+    "city": "Paris",
+    "country": "France",
+    "rating": 4.0,
+    "reviews": 4212,
+    "price_per_night": 560,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Paris. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "bar",
+      "breakfast",
+      "parking",
+      "pet_friendly",
+      "air_conditioning",
+      "pool",
+      "spa"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 167,
+    "name": "Emerald Suites CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 4.6,
+    "reviews": 2029,
+    "price_per_night": 171,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "parking",
+      "spa",
+      "air_conditioning",
+      "pet_friendly",
+      "pool"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1611892440504-42a792e24d32",
+    "available": true
+  },
+  {
+    "id": 168,
+    "name": "Royal Palace Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.1,
+    "reviews": 4616,
+    "price_per_night": 243,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "ocean_view",
+      "spa",
+      "pet_friendly",
+      "pool"
+    ],
+    "tags": [
+      "luxury",
+      "budget",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 169,
+    "name": "Majestic Haven Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 4.4,
+    "reviews": 4048,
+    "price_per_night": 685,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "gym",
+      "ocean_view",
+      "spa",
+      "breakfast",
+      "pet_friendly"
+    ],
+    "tags": [
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": false
+  },
+  {
+    "id": 170,
+    "name": "Oasis Retreat CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.7,
+    "reviews": 4028,
+    "price_per_night": 484,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "spa",
+      "breakfast",
+      "parking",
+      "air_conditioning",
+      "ocean_view"
+    ],
+    "tags": [
+      "family",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": false
+  },
+  {
+    "id": 171,
+    "name": "Crystal Haven Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.5,
+    "reviews": 2026,
+    "price_per_night": 758,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "spa",
+      "restaurant",
+      "gym",
+      "bar"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 172,
+    "name": "Ocean Plaza New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 3.9,
+    "reviews": 960,
+    "price_per_night": 741,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "gym",
+      "wifi",
+      "ocean_view",
+      "breakfast"
+    ],
+    "tags": [
+      "nature",
+      "budget",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 173,
+    "name": "Royal Grand Resort Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 3.4,
+    "reviews": 3543,
+    "price_per_night": 656,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "bar",
+      "wifi",
+      "air_conditioning",
+      "pool"
+    ],
+    "tags": [
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": false
+  },
+  {
+    "id": 174,
+    "name": "Majestic Haven Cancun",
+    "city": "Cancun",
+    "country": "Mexico",
+    "rating": 4.2,
+    "reviews": 3389,
+    "price_per_night": 660,
+    "currency": "USD",
+    "description": "Beautiful budget hotel located in the heart of Cancun. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "bar",
+      "ocean_view",
+      "pool",
+      "parking",
+      "wifi",
+      "breakfast"
+    ],
+    "tags": [
+      "beach",
+      "family",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": false
+  },
+  {
+    "id": 175,
+    "name": "Golden Lodge Paris",
+    "city": "Paris",
+    "country": "France",
+    "rating": 4.7,
+    "reviews": 1398,
+    "price_per_night": 200,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of Paris. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "bar",
+      "parking",
+      "ocean_view",
+      "breakfast",
+      "air_conditioning",
+      "wifi",
+      "pool",
+      "spa"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 176,
+    "name": "Majestic Plaza Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 3.7,
+    "reviews": 2882,
+    "price_per_night": 293,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "ocean_view",
+      "pool",
+      "restaurant",
+      "parking",
+      "spa"
+    ],
+    "tags": [
+      "luxury",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 177,
+    "name": "Sunset Grand Resort Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 4.8,
+    "reviews": 3304,
+    "price_per_night": 315,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "parking",
+      "wifi"
+    ],
+    "tags": [
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1578683010236-d716f9a3f461",
+    "available": true
+  },
+  {
+    "id": 178,
+    "name": "Majestic Retreat New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 4.7,
+    "reviews": 539,
+    "price_per_night": 543,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "ocean_view",
+      "air_conditioning",
+      "wifi",
+      "breakfast",
+      "restaurant",
+      "parking",
+      "pet_friendly"
+    ],
+    "tags": [
+      "nature"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 179,
+    "name": "Emerald Palace Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.7,
+    "reviews": 1802,
+    "price_per_night": 372,
+    "currency": "USD",
+    "description": "Beautiful city hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "wifi",
+      "spa"
+    ],
+    "tags": [
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 180,
+    "name": "Urban Suites Monterrey",
+    "city": "Monterrey",
+    "country": "Mexico",
+    "rating": 4.7,
+    "reviews": 4673,
+    "price_per_night": 314,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Monterrey. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "breakfast",
+      "restaurant",
+      "ocean_view",
+      "wifi",
+      "spa",
+      "parking"
+    ],
+    "tags": [
+      "budget",
+      "nature",
+      "beach",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 181,
+    "name": "Crystal Haven Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.4,
+    "reviews": 507,
+    "price_per_night": 378,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "spa",
+      "parking",
+      "bar",
+      "gym"
+    ],
+    "tags": [
+      "nature",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 182,
+    "name": "Golden Palace Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.0,
+    "reviews": 838,
+    "price_per_night": 382,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "bar",
+      "air_conditioning",
+      "parking",
+      "wifi",
+      "ocean_view"
+    ],
+    "tags": [
+      "nature",
+      "beach",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 183,
+    "name": "Urban Retreat Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.9,
+    "reviews": 1190,
+    "price_per_night": 609,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "pool",
+      "air_conditioning",
+      "breakfast",
+      "bar",
+      "wifi"
+    ],
+    "tags": [
+      "budget",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 184,
+    "name": "Oasis Suites Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.3,
+    "reviews": 1122,
+    "price_per_night": 692,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "restaurant",
+      "bar",
+      "gym",
+      "breakfast",
+      "wifi",
+      "air_conditioning",
+      "pet_friendly"
+    ],
+    "tags": [
+      "nature",
+      "beach",
+      "business",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 185,
+    "name": "Emerald Boutique Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 3.0,
+    "reviews": 1161,
+    "price_per_night": 412,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "breakfast",
+      "ocean_view"
+    ],
+    "tags": [
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b",
+    "available": true
+  },
+  {
+    "id": 186,
+    "name": "Crystal Palace Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 4.0,
+    "reviews": 1061,
+    "price_per_night": 435,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "parking",
+      "ocean_view",
+      "breakfast"
+    ],
+    "tags": [
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 187,
+    "name": "Oasis Plaza New York",
+    "city": "New York",
+    "country": "USA",
+    "rating": 3.6,
+    "reviews": 2193,
+    "price_per_night": 264,
+    "currency": "USD",
+    "description": "Beautiful beach hotel located in the heart of New York. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pet_friendly",
+      "bar",
+      "restaurant",
+      "spa",
+      "pool",
+      "breakfast"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": false
+  },
+  {
+    "id": 188,
+    "name": "Serene Grand Resort Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 4.0,
+    "reviews": 3414,
+    "price_per_night": 75,
+    "currency": "USD",
+    "description": "Beautiful romantic hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "restaurant",
+      "gym",
+      "parking",
+      "spa",
+      "pool",
+      "wifi"
+    ],
+    "tags": [
+      "luxury",
+      "beach",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 189,
+    "name": "Serene Lodge Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.9,
+    "reviews": 2390,
+    "price_per_night": 465,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "restaurant",
+      "bar",
+      "gym",
+      "parking",
+      "ocean_view"
+    ],
+    "tags": [
+      "family",
+      "beach",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 190,
+    "name": "Emerald Boutique CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.4,
+    "reviews": 968,
+    "price_per_night": 756,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "ocean_view",
+      "wifi"
+    ],
+    "tags": [
+      "budget",
+      "luxury",
+      "family",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 191,
+    "name": "Majestic Haven Guadalajara",
+    "city": "Guadalajara",
+    "country": "Mexico",
+    "rating": 3.0,
+    "reviews": 191,
+    "price_per_night": 248,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Guadalajara. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "wifi",
+      "bar",
+      "parking",
+      "spa",
+      "restaurant",
+      "breakfast"
+    ],
+    "tags": [
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1566073771259-6a8506099945",
+    "available": true
+  },
+  {
+    "id": 192,
+    "name": "Golden Lodge Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 3.9,
+    "reviews": 1745,
+    "price_per_night": 464,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "spa",
+      "wifi",
+      "restaurant",
+      "gym",
+      "breakfast",
+      "pool",
+      "air_conditioning"
+    ],
+    "tags": [
+      "nature",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 193,
+    "name": "Urban Palace Tulum",
+    "city": "Tulum",
+    "country": "Mexico",
+    "rating": 3.3,
+    "reviews": 3058,
+    "price_per_night": 135,
+    "currency": "USD",
+    "description": "Beautiful all_inclusive hotel located in the heart of Tulum. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "ocean_view",
+      "wifi",
+      "bar",
+      "spa"
+    ],
+    "tags": [
+      "family",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  },
+  {
+    "id": 194,
+    "name": "Sunset Haven Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 4.2,
+    "reviews": 3181,
+    "price_per_night": 687,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "bar",
+      "gym",
+      "pet_friendly"
+    ],
+    "tags": [
+      "budget",
+      "family",
+      "beach"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1551882547-ff40c0d5bf8f",
+    "available": true
+  },
+  {
+    "id": 195,
+    "name": "Majestic Inn CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.3,
+    "reviews": 2853,
+    "price_per_night": 484,
+    "currency": "USD",
+    "description": "Beautiful family hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "air_conditioning",
+      "bar",
+      "gym",
+      "restaurant"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "city",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1542314831-c6a4d14d2301",
+    "available": true
+  },
+  {
+    "id": 196,
+    "name": "Ocean Palace Miami",
+    "city": "Miami",
+    "country": "USA",
+    "rating": 3.2,
+    "reviews": 3678,
+    "price_per_night": 264,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Miami. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "breakfast",
+      "bar",
+      "air_conditioning",
+      "pool",
+      "gym"
+    ],
+    "tags": [
+      "luxury",
+      "city"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 197,
+    "name": "Emerald Retreat CDMX",
+    "city": "CDMX",
+    "country": "Mexico",
+    "rating": 3.2,
+    "reviews": 3015,
+    "price_per_night": 415,
+    "currency": "USD",
+    "description": "Beautiful business hotel located in the heart of CDMX. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "restaurant",
+      "air_conditioning",
+      "pool",
+      "spa",
+      "gym",
+      "parking",
+      "bar",
+      "pet_friendly"
+    ],
+    "tags": [
+      "budget",
+      "business"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4",
+    "available": true
+  },
+  {
+    "id": 198,
+    "name": "Royal Retreat Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 4.4,
+    "reviews": 988,
+    "price_per_night": 716,
+    "currency": "USD",
+    "description": "Beautiful nature hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "pool",
+      "ocean_view",
+      "restaurant",
+      "breakfast",
+      "bar",
+      "pet_friendly"
+    ],
+    "tags": [
+      "nature",
+      "all_inclusive"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1564501049412-61c2a3083791",
+    "available": true
+  },
+  {
+    "id": 199,
+    "name": "Golden Palace Madrid",
+    "city": "Madrid",
+    "country": "Spain",
+    "rating": 3.7,
+    "reviews": 4704,
+    "price_per_night": 241,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Madrid. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "wifi",
+      "spa",
+      "parking",
+      "pet_friendly",
+      "air_conditioning",
+      "gym",
+      "breakfast",
+      "ocean_view"
+    ],
+    "tags": [
+      "nature",
+      "family",
+      "romantic"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9",
+    "available": true
+  },
+  {
+    "id": 200,
+    "name": "Sunset Grand Resort Puerto Vallarta",
+    "city": "Puerto Vallarta",
+    "country": "Mexico",
+    "rating": 4.9,
+    "reviews": 3739,
+    "price_per_night": 287,
+    "currency": "USD",
+    "description": "Beautiful luxury hotel located in the heart of Puerto Vallarta. Enjoy our wonderful amenities and exceptional service.",
+    "amenities": [
+      "gym",
+      "breakfast",
+      "air_conditioning",
+      "restaurant"
+    ],
+    "tags": [
+      "nature",
+      "luxury"
+    ],
+    "image_url": "https://images.unsplash.com/photo-1584132967334-10e028bd69f7",
+    "available": true
+  }
+]

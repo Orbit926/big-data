@@ -1,6 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const destinations = [
+const fallbackDestinationsInfo = [
   {
     id: 1,
     name: 'Paris',
@@ -81,8 +81,34 @@ function App() {
   const [regPassword, setRegPassword] = useState('')
   const [currentUser, setCurrentUser] = useState('Leonardo')
   const [currentNavTab, setCurrentNavTab] = useState('home')
-  const [selectedDestination, setSelectedDestination] = useState(destinations[0])
+  const [destinations, setDestinations] = useState(fallbackDestinationsInfo)
+  const [selectedDestination, setSelectedDestination] = useState(fallbackDestinationsInfo[0])
   const [calendarDate, setCalendarDate] = useState(new Date(2027, 1, 1))
+
+  useEffect(() => {
+    fetch('/api/search/destinations/')
+      .then(res => res.json())
+      .then(data => {
+        if (!Array.isArray(data)) return
+        const mapped = data.map((d, i) => {
+          const fallback = fallbackDestinationsInfo[i % fallbackDestinationsInfo.length]
+          return {
+            ...fallback,
+            id: d.id,
+            name: d.name,
+            country: d.country,
+            description: d.description,
+            price: d.avg_cost_per_day ? `Desde $${d.avg_cost_per_day} MXN` : fallback.price
+          }
+        })
+        if (mapped.length > 0) {
+          setDestinations(mapped)
+          setSelectedDestination(mapped[0])
+        }
+      })
+      .catch(e => console.error("Error fetching destinations:", e))
+  }, [])
+
   const [selectedRange, setSelectedRange] = useState({ start: null, end: null })
   const [tripPreferences, setTripPreferences] = useState({
     companion: 'Amigos',
@@ -239,48 +265,54 @@ function App() {
     return (
       <div className="min-h-screen bg-white text-[#20222f]">
         <main className="min-h-screen pb-28">
-          <header className="flex items-center justify-between px-6 pt-5">
-            <button className="flex items-center gap-3 rounded-full bg-[#f6f6f8] py-2 pl-2 pr-6">
-              <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-full bg-[#e8eefc]">
-                <span className="text-sm font-bold text-[#ef4b49]">IMG</span>
-              </span>
-              <span className="text-lg font-semibold">{currentUser || 'Leonardo'}</span>
-            </button>
-            <button
-              className="relative grid h-16 w-16 place-items-center rounded-full bg-[#f8f8fa]"
-              aria-label="Notificaciones"
-            >
-              <BellIcon className="h-8 w-8" />
-              <span className="absolute right-5 top-5 h-2.5 w-2.5 rounded-full bg-rojo-principal" />
-            </button>
-          </header>
+          {currentNavTab === 'search' ? (
+            <HotelSearch />
+          ) : (
+            <>
+              <header className="flex items-center justify-between px-6 pt-5">
+                <button className="flex items-center gap-3 rounded-full bg-[#f6f6f8] py-2 pl-2 pr-6">
+                  <span className="grid h-12 w-12 place-items-center overflow-hidden rounded-full bg-[#e8eefc]">
+                    <span className="text-sm font-bold text-[#ef4b49]">IMG</span>
+                  </span>
+                  <span className="text-lg font-semibold">{currentUser || 'Leonardo'}</span>
+                </button>
+                <button
+                  className="relative grid h-16 w-16 place-items-center rounded-full bg-[#f8f8fa]"
+                  aria-label="Notificaciones"
+                >
+                  <BellIcon className="h-8 w-8" />
+                  <span className="absolute right-5 top-5 h-2.5 w-2.5 rounded-full bg-rojo-principal" />
+                </button>
+              </header>
 
-          <section className="px-6 pt-10 text-left">
-            <h1 className="max-w-sm text-[3.25rem] font-light leading-[1.08] text-[#353844] sm:text-6xl">
-              Descubre tu
-              <span className="block font-bold text-[#1d202b]">
-                proximo <span className="text-[#58bcae]">viaje!</span>
-              </span>
-            </h1>
-            <div className="ml-56 mt-1 h-3 w-36 rounded-[50%] border-t-4 border-[#58bcae]" />
-          </section>
+              <section className="px-6 pt-10 text-left">
+                <h1 className="max-w-sm text-[3.25rem] font-light leading-[1.08] text-[#353844] sm:text-6xl">
+                  Descubre tu
+                  <span className="block font-bold text-[#1d202b]">
+                    proximo <span className="text-[#58bcae]">viaje!</span>
+                  </span>
+                </h1>
+                <div className="ml-56 mt-1 h-3 w-36 rounded-[50%] border-t-4 border-[#58bcae]" />
+              </section>
 
-          <section className="mt-8">
-            <div className="mb-6 flex items-center justify-between px-6">
-              <h2 className="text-2xl font-bold text-[#20222f]">Para ir con tus amigos</h2>
-              <button className="text-lg font-medium text-rojo-principal">Ver todo</button>
-            </div>
+              <section className="mt-8">
+                <div className="mb-6 flex items-center justify-between px-6">
+                  <h2 className="text-2xl font-bold text-[#20222f]">Para ir con tus amigos</h2>
+                  <button className="text-lg font-medium text-rojo-principal">Ver todo</button>
+                </div>
 
-            <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {destinations.map((destination) => (
-                <DestinationCard
-                  key={destination.id}
-                  destination={destination}
-                  onSelect={openDestination}
-                />
-              ))}
-            </div>
-          </section>
+                <div className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  {destinations.map((destination) => (
+                    <DestinationCard
+                      key={destination.id}
+                      destination={destination}
+                      onSelect={openDestination}
+                    />
+                  ))}
+                </div>
+              </section>
+            </>
+          )}
         </main>
 
         <BottomNav currentNavTab={currentNavTab} setCurrentNavTab={setCurrentNavTab} />
@@ -358,6 +390,119 @@ function App() {
   }
 
   return null
+}
+
+function HotelSearch() {
+  const [query, setQuery] = useState('')
+  const [hotels, setHotels] = useState([])
+  const [loading, setLoading] = useState(false)
+  const [pagination, setPagination] = useState({ next: null, previous: null })
+
+  const fetchHotels = (url) => {
+    setLoading(true)
+    fetch(url)
+      .then(res => res.json())
+      .then(data => {
+        setHotels(data.results || [])
+        setPagination({ next: data.next, previous: data.previous })
+      })
+      .catch(e => console.error("Error fetching hotels:", e))
+      .finally(() => setLoading(false))
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if (!query) return
+    fetchHotels(`/api/search/hotels/?q=${encodeURIComponent(query)}`)
+  }
+
+  return (
+    <div className="px-6 pt-10 text-left">
+      <h1 className="text-3xl font-bold text-[#20222f] mb-6">Encuentra el hotel ideal</h1>
+      <form onSubmit={handleSearch} className="mb-8 relative">
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Busca por ciudad o nombre..."
+          className="w-full bg-[#f6f6f8] text-[#20222f] px-6 py-4 rounded-full outline-none focus:ring-2 focus:ring-rojo-principal text-lg placeholder-gray-400"
+        />
+        <button
+          type="submit"
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-rojo-principal text-white p-3 rounded-full hover-rojo transition-colors"
+          disabled={loading}
+        >
+          <SearchIcon className="h-6 w-6" />
+        </button>
+      </form>
+
+      {loading ? (
+        <div className="flex justify-center items-center py-20 text-rojo-principal text-xl font-bold">
+          Cargando...
+        </div>
+      ) : (
+        <>
+          <div className="space-y-6">
+            {hotels.map(hotel => (
+              <div key={hotel.id} className="bg-white rounded-[2rem] shadow-[0_18px_45px_rgba(22,30,46,0.08)] overflow-hidden">
+                <div className="h-48 bg-gradient-to-br from-[#202634] via-[#5f8fd9] to-[#f2d27a] relative">
+                  {hotel.image_url && <img src={hotel.image_url} alt={hotel.name} className="w-full h-full object-cover" />}
+                  <div className="absolute top-4 right-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+                    <StarIcon className="h-4 w-4 text-[#ffc94c]" /> {hotel.rating}
+                  </div>
+                </div>
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-[#20222f] leading-tight">{hotel.name}</h3>
+                    <div className="text-right shrink-0 ml-4">
+                      <span className="block text-xl font-bold text-[#1b66ff]">${hotel.price_per_night}</span>
+                      <span className="block text-xs text-gray-500 uppercase">{hotel.currency} / noche</span>
+                    </div>
+                  </div>
+                  <p className="flex items-center gap-1 text-sm text-gray-500 mb-4">
+                    <PinIcon className="h-4 w-4" /> {hotel.city}, {hotel.country}
+                  </p>
+                  <p className="text-sm text-gray-600 line-clamp-2 mb-4">{hotel.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {hotel.tags?.slice(0, 3).map(tag => (
+                      <span key={tag} className="bg-[#f6f6f8] text-xs font-semibold px-3 py-1 rounded-full text-gray-600">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {(pagination.previous || pagination.next) && (
+            <div className="flex justify-between mt-8 mb-4">
+              <button
+                disabled={!pagination.previous}
+                onClick={() => fetchHotels(pagination.previous)}
+                className="bg-[#f6f6f8] disabled:opacity-50 text-[#20222f] px-6 py-3 rounded-full font-bold shadow hover:bg-gray-200 transition"
+              >
+                Anterior
+              </button>
+              <button
+                disabled={!pagination.next}
+                onClick={() => fetchHotels(pagination.next)}
+                className="bg-rojo-principal disabled:opacity-50 text-white px-6 py-3 rounded-full font-bold shadow-lg hover-rojo transition"
+              >
+                Siguiente
+              </button>
+            </div>
+          )}
+          
+          {!loading && hotels.length === 0 && query && (
+            <div className="text-center py-10 text-gray-500 text-lg">
+              No se encontraron hoteles para tu búsqueda.
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  )
 }
 
 function AuthShell({ children, onBack }) {
